@@ -94,7 +94,7 @@ analytics:
 # Site Author
 author:
   name             : "JE"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/image/photo.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Back-End 개발자를 위해 꾸준히 공부 중!"
   location         : "Seoul, Korea"
   email            : "jes7077@gmail.com"
