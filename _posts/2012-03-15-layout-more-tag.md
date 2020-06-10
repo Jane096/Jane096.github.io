@@ -8,7 +8,7 @@ tags:
   - content
   - read more
   - layout
-last-modified-at: {{ page.last_modified_at }}
+{{ page.last_modified_at }}
 ---
 
 This content is before the [excerpt separator tag](http://jekyllrb.com/docs/posts/#post-excerpts).
