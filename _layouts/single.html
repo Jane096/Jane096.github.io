@@ -55,7 +55,12 @@ layout: default
       </footer>
 
       {% if page.share %}{% include social-share.html %}{% endif %}
-
+       {% if page.comments %} 
+        <div id="post-disqus" class="container"> 
+       {% include disqus.html %} 
+        </div> 
+      {% endif %}
+  
       {% include post_pagination.html %}
     </div>
 
@@ -88,13 +93,6 @@ layout: default
       </div>
     </div>
   {% endif %}
-  
-  {% if page.comments %} 
-<div id="post-disqus" class="container"> 
-  {% include disqus.html %} 
-</div> 
-{% endif %}
-  
 </div>
 
 
