@@ -8,6 +8,6 @@ tags:
   - Blog
 last_modified_at: 2020-06-10
 ---
-testing....
-제목: {{ page.title }}
+testing....  
+제목: {{ page.title }}  
 시간: {{ page.last_modified_at }}
