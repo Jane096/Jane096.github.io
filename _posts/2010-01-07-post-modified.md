@@ -1,6 +1,6 @@
 ---
 title: "Post: Modified Date"
-last_modified_at: {{ page.last_modified_at }}
+last_modified_at: 
 categories:
   - Post Formats
 tags:
