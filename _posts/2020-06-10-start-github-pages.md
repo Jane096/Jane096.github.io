@@ -2,7 +2,7 @@
 title: "Github로 블로그 개설하기"  
 layout: single  
 read_time: true  
-comments: true  
+comment: true  
 categories: 
  - github  
 toc: true  
