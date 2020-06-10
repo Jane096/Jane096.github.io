@@ -1,13 +1,13 @@
 ---
-title: "Github로 블로그 개설하기"  
-layout: single  
-read_time: true  
-comment: true  
+title: "Github로 블로그 개설하기"    
+layout: single    
+read_time: true    
+comments: true   
 categories: 
  - github  
-toc: true  
-toc_sticky: true  
-toc_label: contents  
+toc: true    
+toc_sticky: true    
+toc_label: contents    
 description: Github로 블로그를 개설하고 글 작성해서 확인하는 방법, 그리고 jekyll theme, ruby 설치하기(+markdowm 연습)  
 last_modified_at: 2020-06-11  
 ---
