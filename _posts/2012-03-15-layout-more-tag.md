@@ -8,7 +8,6 @@ tags:
   - content
   - read more
   - layout
-{{ page.last_modified_at }}
 ---
 
 This content is before the [excerpt separator tag](http://jekyllrb.com/docs/posts/#post-excerpts).
