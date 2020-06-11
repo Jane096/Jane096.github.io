@@ -257,11 +257,16 @@ $ git add .
 $ git commit -m "first commit"
 $ git push
 ```
+<br>
 이렇게 순서대로 입력해준다면 아래와 같이 변경사항이 모두 반영되어있는 걸 확인할 수 있습니다.
+<br>
 ![변경사항 이미지]({{ site.url }}{{ site.baseurl }}/assets/start_github/themechange.PNG){: .align-center}  
 <br>
 
 ### github.io 호스트에서 확인해보기
 주소창에 https://{Git ID}.github.io 에서도 커스터마이징이 모두 완료되었는지 확인합니다.
-아래와 같이 뜬다면 개설 성공!!!! 만약에 posts파일 밑의 내용을 아무것도 지우지 않았다면 sample 파일들이 잘 떠있을 겁니다! 저는 다 지워버려서 없네요 ㅎㅎ <br> 
-![최종 이미지]({{ site.url }}{{ site.baseurl }}/assets/start_github/final.PNG){: .align-center} 
+아래와 같이 뜬다면 개설 성공!!!! 만약에 posts파일 밑의 내용을 아무것도 지우지 않았다면 sample 파일들이 잘 떠있을 겁니다! 저는 다 지워버려서 없네요 ㅎㅎ 
+<br>
+![최종 이미지]({{ site.url }}{{ site.baseurl }}/assets/start_github/final.PNG){: .align-center} <br>
+<br>
+<br>
