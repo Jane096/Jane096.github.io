@@ -87,7 +87,7 @@ $ git clone [아까 복사한 web url]
 다운로드 받은 rubyinstaller 파일을 실행해 그대로 설치하기만 하면 됩니다. <br>
 
 
-![루비 설치확인 이미지]({{ site.url }}{{ site.baseurl }}/assets/start_github/rubyinstallok.PNG){: .align-center} <br>
+![루비 설치확인 이미지]({{ site.url }}{{ site.baseurl }}/assets/start_github/Inkedrubyinstallok_LI.jpg){: .align-center} <br>
 루비 설치가 완료되었다면 cmd창에서 **ruby -v**를 입력해 버전이 뜨는지 확인합니다.  
 잘 뜬다면 설치가 완료되었다는 의미입니다.  <br>
 <br>
