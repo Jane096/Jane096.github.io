@@ -87,7 +87,7 @@ $ git clone [아까 복사한 web url]
 다운로드 받은 rubyinstaller 파일을 실행해 그대로 설치하기만 하면 됩니다. <br>
 
 
-![루비 설치확인 이미지]({{ site.url }}{{ site.baseurl }}/assets/start_github/rubyinstallok.PNG){: .align-center} 
+![루비 설치확인 이미지]({{ site.url }}{{ site.baseurl }}/assets/start_github/rubyinstallok.PNG){: .align-center} <br>
 루비 설치가 완료되었다면 cmd창에서 **ruby -v**를 입력해 버전이 뜨는지 확인합니다.  
 잘 뜬다면 설치가 완료되었다는 의미입니다.  <br>
 <br>
@@ -245,7 +245,7 @@ author_profile: true
 ```
 <br>
 
-layout은 앞서 설명했듯이 layouts폴더 하위의 있는 html 파일 중 하나를 선택해 사용해야 하고 permalink에 입력된 url을 보고 해당 페이지에 layout을 적용하게 됩니다. title은 말 그대로 블로그 포스팅의 제목입니다.<br><br>
+layout은 앞서 설명했듯이 layouts폴더 하위의 있는 html 파일 중 하나를 선택해 사용해야 하고 title, permalink는 navigation.yml에 설정해둔 title, url과 일치해야 합니다. permalink url을 보고 해당 페이지에 layout을 적용해 화면에 보여지게 됩니다. <br><br>
 
 
 
