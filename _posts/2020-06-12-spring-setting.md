@@ -158,17 +158,24 @@ public class testDI {
 Restaurant클래스에 @Component가 있으므로 해당 인스턴스를 생성하고 Chef라는 객체가 필요하다는 설정이 있으므로
 최종 주입을 한다. 
 <br>
+<br>
+<br>
 스프링이 동작하는 과정을 정리해보자면, 
 - 스프링이 시작되면 스프링이 사용하는 메모리 영역인 Context를 만들게 되고 해당 메모리 영역을 ApplicationContext라는 이름으로 생성한다.
 - RootConfig를 통해 스프링이 객체를 생성하고 관리해야 하는 객체들의 설정 정보를 읽는다.
 - @ComponentScan에 지정된 패키지를 읽고 해당 패키지 내에 @Component 어노테이션이 달린 클래스를 찾는다.
 - 해당 클래스의 인스턴스를 생성하고 필요한 객체(@AllArgsConstructor 또는 @Autowired)를 주입해준다.
 <br>
+<br>
+<br>
 여기서 주목할 점은  
 - Restaurant이 new 연산자 없이 객체가 생성되었다는 것
 - @Data 어노테이션으로 getter/setter method를 자동 생성해준 것
 - @AllArgsConstructor(또는 @Autowired)로 chef의 인스턴스 변수가 Restaurant에 주입되어 자동으로 객체가 관리되는 것<br>
+<br>
+<br>
 요 3가지로 정리할 수 있을 듯 하다 :) 
+<br>
 <br>
 <br>
 계속 쓰다 보면 정리하는 스킬도 늘겠지?? ㅎㅎㅎㅎ (처음이라 뭔가 부족해보임..ㅠㅠ)
