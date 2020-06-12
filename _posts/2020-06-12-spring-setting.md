@@ -80,7 +80,7 @@ src/main/java 하위에 xxx.xxx.config 패키지 생성 후, RootConfig/WebConfi
 ### 스프링의 주요 특징
 - POJO 기반의 구성
 - DI를 통한 객체 간의 구성
-- AOP를 통한 중복 코드 최소화
+- AOP를 통한 중복 코드 최소화<br>
 크게는 이렇게 3가지가 있다.  
 <br>
 
@@ -164,10 +164,10 @@ Restaurant클래스에 @Component가 있으므로 해당 인스턴스를 생성�
 - @ComponentScan에 지정된 패키지를 읽고 해당 패키지 내에 @Component 어노테이션이 달린 클래스를 찾는다.
 - 해당 클래스의 인스턴스를 생성하고 필요한 객체(@AllArgsConstructor 또는 @Autowired)를 주입해준다.
 <br>
-여기서 주목할 점은
+여기서 주목할 점은  
 - Restaurant이 new 연산자 없이 객체가 생성되었다는 것
 - @Data 어노테이션으로 getter/setter method를 자동 생성해준 것
-- @AllArgsConstructor(또는 @Autowired)로 chef의 인스턴스 변수가 Restaurant에 주입되어 자동으로 객체가 관리되는 것
+- @AllArgsConstructor(또는 @Autowired)로 chef의 인스턴스 변수가 Restaurant에 주입되어 자동으로 객체가 관리되는 것<br>
 요 3가지로 정리할 수 있을 듯 하다 :) 
 <br>
 <br>
