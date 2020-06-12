@@ -17,7 +17,6 @@ STS(이클립스 플러그인)와 Tomcat, Oracle DB 설치 방법은 생략하�
 <br>
 
 ## chapter 1. 스프링 프로젝트 생성하기 
-<br>
 File -> New -> Spring Legacy Project 에서 Spring MVC Project 이용해 생성함. 
 <br>
 <br>
@@ -36,7 +35,6 @@ Maven 등에서 스프링 관련 파일을 다운로드 받는데 이러한 라�
 <br>
 
 ### 스프링 프로젝트 구조
-<br>
 ![스프링 생성에러 이미지]({{ site.url }}{{ site.baseurl }}/assets/ready-spring/springdefault.PNG){: .align-center} 
 <br>
 - src/main/java : 작성되는 java코드 경로 (controller, config, service, mapper java파일 관리함)
@@ -50,7 +48,6 @@ Maven 등에서 스프링 관련 파일을 다운로드 받는데 이러한 라�
 - pom.xml : maven 관련 설정 파일 목록
 
 ### Java version으로 변경할 경우
-<br>
 ![스프링 생성에러 이미지]({{ site.url }}{{ site.baseurl }}/assets/ready-spring/javawarplugin.PNG){: .align-center} 
 <br>
 pom.xml하단에 해당 코드를 입력하고 위의 maven-compiler-plugin과 java version은 모두 1.8로 맞춰주기(스프링 5.x 버전 에서는 jdk 1.8이 가장 안정적이라고 함)
@@ -58,7 +55,6 @@ pom.xml하단에 해당 코드를 입력하고 위의 maven-compiler-plugin과 j
 **pom.xml을 변경하면 꼭 Alt+F5 해서 maven project 업데이트 하도록!**
 
 ### @Configuration Annotation (RootConfig)
-<br>
 ![어노테이션 이미지]({{ site.url }}{{ site.baseurl }}/assets/ready-spring/configuration.PNG){: .align-center} 
 <br>
 src/main/java 하위에 xxx.xxx.config 패키지 생성 후, RootConfig/WebConfig/ServletConfig라는 이름의 파일 생성하기.  
@@ -68,7 +64,6 @@ src/main/java 하위에 xxx.xxx.config 패키지 생성 후, RootConfig/WebConfi
 <br>
 
 ### WebConfig와 AbstractAnnotationConfigDispatcherServletInitializer
-<br>
 ![인터페이스 오버라이딩]({{ site.url }}{{ site.baseurl }}/assets/ready-spring/webconfiginterface.PNG){: .align-center}
 <br>
 이름이 엄청 긴 이 인터페이스는 spring 3.x이상에서 작동하며 web.xml을 대체할 수 있도록 해주는 기능이다. 
@@ -82,9 +77,7 @@ src/main/java 하위에 xxx.xxx.config 패키지 생성 후, RootConfig/WebConfi
 <br>
 
 ## chapter 2. 스프링의 특징과 의존성 주입(spring DI)
-<br>
 ### 스프링의 주요 특징
-<br>
 - POJO 기반의 구성
 - DI를 통한 객체 간의 구성
 - AOP를 통한 중복 코드 최소화
@@ -92,7 +85,6 @@ src/main/java 하위에 xxx.xxx.config 패키지 생성 후, RootConfig/WebConfi
 <br>
 
 ### POJO???
-<br>
 Plain Old Java Object의 약자로 특정 라이브러리나 컨테이너에 기술이 종속적이지 않다는 것(즉, 재사용성이 높음!)
 무슨말이냐면
 <br>
@@ -112,7 +104,6 @@ public class Example {
 <br>
 
 ### 의존성 주입(Dependency Injection = DI) 
-<br>
 DI란 하나의 객체가 다른 객체 없이 제대로 된 역할을 할 수 없다는 것을 의미한다.  
 어떠한 객체를 외부에서 주입한다는 것인데, 주입받는 입장에서는 어떤 객체인지 신경 쓸 필요가 없고, 자신의 역할만을
 충실하게 수행을 하게 된다.  
@@ -134,7 +125,6 @@ Restaurant객체는 Chef말고도 여러가지를 주입받을 수 있으며 어
 <br>
 
 ### 의존성 주입 테스트 해보기 
-<br>
 src/test/java 에 ~~test.java 라는 파일을 하나 생성하고 Rootconfig파일에 @ComponentScan을 추가해
 간단하게 의존성 주입을 테스트 해보면
 <br>
