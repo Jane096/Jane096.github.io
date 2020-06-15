@@ -104,16 +104,15 @@ Model 타입을 사용하는 경우는 controller에서 전달된 데이터 이�
 <br>
 <br>
 ```java
-GetMapping("/modelAttrubute")
+@GetMapping("/modelAttrubute")
 public String test(xxxDTO dto, @ModelAttribute("page") int page) {
   log.info(dto);
   log.info("page: " + page);
   
   return "/sample/modelAttribute";
 }
-```
+```   
 
-<br>
 ```java
 //브라우저 화면
 dto : xxxDTO(num=1, str=a)
