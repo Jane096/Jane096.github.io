@@ -112,6 +112,7 @@ public String test(xxxDTO dto, @ModelAttribute("page") int page) {
   return "/sample/modelAttribute";
 }
 ```
+
 <br>
 ```java
 //브라우저 화면
