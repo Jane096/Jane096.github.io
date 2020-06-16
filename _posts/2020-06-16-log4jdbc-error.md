@@ -19,7 +19,8 @@ Spring 커넥션 풀을 설정할 때 자주 사용하는 Hikari CP와 로그 �
 <br>
 Hikari CP를 빌드 하고 난 뒤 PreparedStatement의 ?값에 대한 로그를 제대로 보기 위해 
 log4jdbc 라이브러리를 설치 후 기존 RootConfig의 코드를 아래와 같이 변경을 하게 될 것이다.      
-<br>
+<br>  
+
 **Please Note:** oracle database 11g xe버전 기준
 {: .notice--info}
 <br>
