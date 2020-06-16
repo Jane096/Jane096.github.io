@@ -43,9 +43,9 @@ log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
 ```
 <br>
 <br>
-그런데 console 창을 보면...??   
+그런데 console 창을 보면...??       
 <br>
-<br>
+<br>     
 **Console** "Cannot create JDBC driver of class 'net.sf.log4jdbc.sql.jdbcapi.DriverSpy'....."
 {: .notice--warning}
 <br><br>
