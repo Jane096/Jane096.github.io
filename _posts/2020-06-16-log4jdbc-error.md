@@ -46,7 +46,8 @@ log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
 그런데 console 창을 보면...??   
 <br>
 <br>
-Cannot create JDBC driver of class 'net.sf.log4jdbc.sql.jdbcapi.DriverSpy'....."{: .notice--warning}
+**Console** "Cannot create JDBC driver of class 'net.sf.log4jdbc.sql.jdbcapi.DriverSpy'....."
+{: .notice--warning}
 <br><br>
 보통 책이나 구글링을 하다보면 대부분의 사람들이 properties에 저 코드만 넣어도 동작이 된다고 하는데 나는 이상하게 동작하지 않았다.   
 그리고 이에 대한 설명을 해놓은 부분도 찾기가 힘들어 고치는데 상당히 애를 먹었다...ㅠ    
