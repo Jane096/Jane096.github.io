@@ -13,12 +13,13 @@ last_modified_at: 2020-06-16
 ---
 <br>
 Spring 커넥션 풀을 설정할 때 자주 사용하는 Hikari CP와 로그 확인용인 log4jdbc 라이브러리 구축할 때 책이나 구글에서도 흔하게 발생하지 않는(?) 에러가 나에게 발견되었어서...   
-한번 정리해본다.   
+한번 정리해본다.      
 <br>
 <br>
 <br>
 Hikari CP를 빌드 하고 난 뒤 PreparedStatement의 ?값에 대한 로그를 제대로 보기 위해 
-log4jdbc 라이브러리를 설치 후 기존 RootConfig의 코드를 아래와 같이 변경을 하게 될 것이다.   
+log4jdbc 라이브러리를 설치 후 기존 RootConfig의 코드를 아래와 같이 변경을 하게 될 것이다.      
+<br>
 **Please Note:** oracle database 11g xe버전 기준
 {: .notice--info}
 <br>
