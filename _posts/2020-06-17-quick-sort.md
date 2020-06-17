@@ -50,12 +50,12 @@ _재귀호출 할 때 무한루프에 빠지지 않도록 주의하자_
 <br>
 ```java
   public void quickSort(int[] arr, s, e) {
-    int start = s;
-    int end = e;
+    int start = s; //index 0을 보내야함
+    int end = e; //arr.length - 1로 가장 큰 index값 
     int pivot = arr[(start+end)/2];
     
     while(start <= end) { //start는 계속 증가시키고 end는 계속 감소시켜 서로 교차하는 지점까지 반복
-       while(arr[start] < pivot) start++; //start가 가리키는 값과 pivot 값을 비교해서 더 작은 경우 반복해서 시작 인덱스 값을 증가시켜 큰값이 좌측에 있는 것을 찾는다.
+       while(arr[start] < pivot) start++; //start가 가리키는 값과 pivot 값을 비교해서 더 작은 경우 시작 인덱스 값을 증가시켜 큰값이 좌측에 있는 것을 찾는다.
        while(arr[end] > pivot) end--; //end값과 pivot값을 비교해 end가 더 크다면 인덱스 값을 감소 시켜 작은값이 오른쪽에 있는 것을 찾아낸다.  
        if(start <= end) { //swap기능으로, 아직 교차지점에 오지 않았다면, start인덱스와 end인덱스를 상호 교대 시켜준다(잘못된 위치의 있는 두 값을 고치기 위해서)
          int temp = arr[start];
