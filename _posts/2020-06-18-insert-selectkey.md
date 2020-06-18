@@ -105,7 +105,7 @@ INFO : 1. Connection.preparedStatement(insert into board.........)
 INFO: xxx.xxx.mapper.BoardMapperTest - BoardVO(bno=1, title=하하, content=내용.....)
 ```
 <br>  
-실행결과를 살펴보면 **<selectKey>**에 order를 **BEFORE**로 설정해놨기에 <insert>보다 먼저 쿼리문이 실행이 되어진다.   
+실행결과를 살펴보면 **selectKey**에 order를 **BEFORE**로 설정해놨기에 <insert>보다 먼저 쿼리문이 실행이 되어진다.   
 bno값이 먼저 실행이 되고 insert가 실행이 되기 때문에 console에서 3번째 info를 확인해본다면 bno값이 어떤 값으로 설정되었는지 확인할 수 있다.   
 <br>
 <br>
