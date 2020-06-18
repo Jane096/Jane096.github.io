@@ -15,11 +15,13 @@ last_modified_at: 2020-06-18
 <br>  
 게시판 기능에서 insert를 할 때 2가지의 처리방식이 있다.     
 - insert만 처리되고 생성된 PK값을 몰라도 되는 경우
-- insert가 처리되고 생성된 PK값을 알아야 하는 경우<br>  
+- insert가 처리되고 생성된 PK값을 알아야 하는 경우<br> 
+
 <br>  
 만약 2번째와 같은 상황이 자주 발생이 되는 경우 Mapper interface로 구현된 파일에 method를 하나 추가해주도록 한다.    
 <br>
-<br>   
+<br> 
+
 ## Insert  
 ### Mapper Interface  
 
