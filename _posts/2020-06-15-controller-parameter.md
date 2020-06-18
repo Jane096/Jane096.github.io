@@ -32,6 +32,7 @@ public String test(@RequestParam("num") int num) {
 위와 같이 사용하면 문자열 num을 int타입으로 자동으로 변환을 해주게 된다.   
 <br>
 <br>
+
 ## List, Array 
 @RequestParam의 경우 여러가지 값을 받게 되는 경우 코드가 길어지는 문제가 발생하는데, 동일 이름의 파라미터가 여러개 전달되는 경우
 List나 Array 타입으로도 받을 수 있다.  
@@ -55,6 +56,7 @@ INFO: xxx.xxx.controller.SampleController - num: [1, 2, 3]
 <br>
 <br>
 <br>
+
 ## Object
 전달하는 데이터가 DTO나 VO처럼 여러가지를 처리한다고 하면 객체를 받는 타입으로 정해 한꺼번에 처리가 가능하다.   
 ```java
@@ -76,6 +78,7 @@ jsp view화면이 정의 안되어있다면 브라우저에서는 에러화면�
 <br>
 <br>
 <br>
+
 ## Model
 Model 객체는 JSP 내 컨트롤러에서 생성된 데이터를 담아 전달하는 역할을 한다. jsp view로 전달해야하는 데이터를 담아서 보내줄 수 있다.   
 Model 2 방식에서 많이 사용하는 request.setAttribute()와 비슷한 역할을 수행한다.   
@@ -95,6 +98,7 @@ Model 타입을 사용하는 경우는 controller에서 전달된 데이터 이�
 - 파라미터의 처리 후 결과를 전달할 때<br>
 <br>
 <br>
+
 이 두가지 경우에 Model 타입을 쓰면 유용하다 할 수 있겠다 :)
 <br>
 <br>
