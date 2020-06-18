@@ -11,24 +11,28 @@ toc_label: contents
 description: 그냥 insert할 때와 insertSelectKey를 적용했을 때의 차이점
 last_modified_at: 2020-06-18   
 ---   
+
 <br>  
 게시판 기능에서 insert를 할 때 2가지의 처리방식이 있다.     
 - insert만 처리되고 생성된 PK값을 몰라도 되는 경우
-- insert가 처리되고 생성된 PK값을 알아야 하는 경우<br>
+- insert가 처리되고 생성된 PK값을 알아야 하는 경우<br>  
 <br>  
-만약 2번째와 같은 상황이 자주 발생이 되는 경우 Mapper interface로 구현된 파일에 method를 하나 추가해주도록 한다.   
+만약 2번째와 같은 상황이 자주 발생이 되는 경우 Mapper interface로 구현된 파일에 method를 하나 추가해주도록 한다.    
 <br>
-<br>
-## Insert
-### Mapper Interface
+<br>   
+## Insert  
+### Mapper Interface  
+
 ```java
 public interface BoardMapper { 
 	public void insert(BoardVO board);
 	public void insertSelectKey(BoardVO board); //추가된 method
 }
 ```
+
 <br>
-### Mapper XML
+### Mapper XML   
+
 ```xml
 <insert id="insert">
 		insert into tbl_board (bno, title, content, writer)
@@ -48,7 +52,8 @@ method가 하나 추가되었으니 그에 맞는 sql쿼리문을 xml파일에�
 **SelectKey**라는 기능이 하나 추가된 insert문을 볼 수 있다.   
 그냥 insert랑 selectkey가 추가된 insert의 차이를 알기 위해서 test를 해보았다.    
 <br>
-### Mapper Insert 단위테스트 
+### Mapper Insert 단위테스트   
+
 ```java
 //BoardMapperTest파일
 @Test
@@ -73,7 +78,8 @@ bno의 값이 null로 설정되어 입력하기 전에 bno값이 어떤 값으�
 DB로 입력되었을 때 자동으로 생성되기 때문에 게시물의 데이터를 입력하기 전 bno값을 알고 싶다면 SelectKey를 사용하면 된다.   
 <br>
 <br>
-### Mapper InsertSelectKey 단위테스트
+### Mapper InsertSelectKey 단위테스트   
+
 ```java
 //BoardMapperTest파일
 @Test
