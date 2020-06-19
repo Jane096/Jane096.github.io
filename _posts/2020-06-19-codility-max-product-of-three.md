@@ -39,9 +39,37 @@ Arrays.sort를 사용해 오름차순 정렬 후 오른쪽에서 3개를 고르�
 예를 들자면, {-100, -10, -1, 5, 7}이 주어졌을 때 -1x5x7 = -35이지만 다른 경우로 보면 -100x-10x7 = 7000 이기 때문에 주의해야한다.   
 <br>
 <br>
-또한 고른 숫자 들 중에서 0이 포함되어있다면 값이 무조건 0이기 때문에 0은 제외를 시켜야 한다.   
+또한 고른 숫자 들 중에서 0이 포함되어있다면 값이 무조건 0이기 때문에 0은 제외를 시켜야 한다.    
+숫자의 시작이 0이거나 모든 숫자가 1이라면 0을 리턴하게 한다.   
+<br>
+<br>
+```java
 
-_코드 올려야함!!_
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A) {
+        Arrays.sort(A);
+        int index = A.length-1;
+        
+        if(A[index] < 0) {
+            return A[index] * A[index-1] * A[index-2];
+        }else if(A[index-1] < 0 || A[index-2] < 0) {
+            return A[index] * A[0] * A[1];
+        }
+        int answer1 = A[index] * A[index-1] * A[index-2];
+        int answer2 = A[index] * A[0] * A[1];
+        
+        return answer1 < answer2 ? answer2 : answer1;
+    }
+}
+```
+
+<br>
+
+경우의 수에 대해 충분히 생각을 못해 처음에 절반 정도 밖에 못맞추고 다른 사람들의 코드를 봤는데   
+제일 큰 수가 음수일 경우엔 오른쪽에서 3개를 골라 곱하면 되고 오른쪽 값 3개 중 하나라도 음수라면 왼쪽에 2개의 값을 가져와 곱한다.   
+두개 중 어느 것도 속하지 않는다면 오른쪽 값 3개를 곱한 값과 왼쪽 2개 값을 가져와 곱한 것을 비교해 제일 큰 쪽으로 리턴한다.    
 <br>
 <br>
 <br>
