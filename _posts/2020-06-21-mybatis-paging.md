@@ -242,7 +242,6 @@ public void testPage() {
 <br>
 
 ```java
-package org.zerock.domain;
 
 import lombok.Getter;
 import lombok.ToString;
