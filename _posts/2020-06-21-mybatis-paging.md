@@ -60,7 +60,7 @@ public class Criteria {
 ### mapper.java method 추가
 mapper 패키지에서 게시물에 해당하는 Mapper 클래스에 Criteria 타입을 파라미터로 사용하는 method를 추가해주도록 한다.
 
-**Criteria? ** 페이지 검색의 기준을 위한 클래스로 편의를 위해 하나의 객체로 묶어서 전달하기 위함 
+**Criteria?** 페이지 검색의 기준을 위한 클래스로 편의를 위해 하나의 객체로 묶어서 전달하기 위함 
 {: .notice--info}
 
 <br>
