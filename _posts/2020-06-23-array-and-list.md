@@ -139,7 +139,7 @@ public void queueInsert() {
 <br>
 
 위와 같은 코드로 LinkedList를 통해 빈번한 삽입 삭제가 일어날 시 유용하게 쓰일 수 있다.       
-**Deque?**: 'deck'이라 발음하며 Queue interface의 확장이고 양 끝에 원소를 추가하고 삭제할 수 있다{: .notice--info}   
+**Deque?:** 'deck'이라 발음하며 Queue interface의 확장이고 양 끝에 원소를 추가하고 삭제할 수 있다{: .notice--info}   
 
 <br>
 <br>
