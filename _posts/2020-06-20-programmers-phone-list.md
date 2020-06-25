@@ -4,7 +4,8 @@ layout: single
 read_time: true    
 comments: true   
 categories: 
- - algorithm  
+ - algorithm 
+ - Data structure
 description: 프로그래머스 전화번호목록(level 2) 문제해결 하며 정리한 내용
 last_modified_at: 2020-06-20   
 ---   
