@@ -4,7 +4,8 @@ layout: single
 read_time: true    
 comments: true   
 categories: 
- - algorithm  
+ - algorithm 
+ - Data structure
 description: 프로그래머스 위장 문제에서 헷갈렸던 점 정리
 last_modified_at: 2020-06-19   
 ---   
