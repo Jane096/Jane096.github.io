@@ -302,7 +302,7 @@ httpd.conf파일로 들어가 편집을 해줘야 한다.
 /LoadModule을 검색해서 해당 부분으로 이동을 해준다. 
 <br>
 
-![LoadModlue 추가]({{ site.url }}{{ site.baseurl }}/assets/connection/loadmodule.PNG){: .align-center}
+![LoadModule 추가]({{ site.url }}{{ site.baseurl }}/assets/connection/loadModule.PNG){: .align-center}
 <br>
 
 노란색 형광펜 부분을 입력해주도록 한다. 오탈자가 나지 않게 조심하자.....
