@@ -351,7 +351,7 @@ vi /etc/httpd/conf/workers.properties
 (여기서 오타내서 나중에 연결안됐으니 주의.....)
 <br>
 
-![디렉토리권한]({{ site.url }}{{ site.baseurl }}/assets/connection/serdocumentrooot.PNG){: .align-center}
+![디렉토리권한]({{ site.url }}{{ site.baseurl }}/assets/connection/serdocumentroot.PNG){: .align-center}
 <br>
 
 tomcat이 설치된 경로에 ROOT에게 Directory 권한을 추가해주면 된다.
