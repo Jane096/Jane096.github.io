@@ -87,7 +87,7 @@ public static void maxHeapify(int[] a, int parent) {
     return; //자식노드가 없다면 종료
   }
   
-  //왼쪽 오른쪽 중에서 더 큰 값을 n에 저장한다.
+  //왼쪽 오른쪽 중에서 더 큰 값을 child에 저장한다.
   if(a[leftChild] > arr[rightChild]) {
     child = leftChild;
   }else {
@@ -110,7 +110,7 @@ public static void maxHeapify(int[] a, int parent) {
 ```
 <br>
 
-**<참고>**   
+**참고**   
 
 >부모 노드 구하기: a[parent/2]    
 >부모의 왼쪽 자식 노드 구하기: a[parent x2]   
