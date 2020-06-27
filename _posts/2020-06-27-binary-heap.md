@@ -66,18 +66,17 @@ public static void main(String[] args) {
 public static void heapSort(int[] a) {
  int max = a.length;
  
- //build Heap 
+ //build Heap: 힙인지 아닌지 판별 여부(heapify 연산 가능 여부)
  for(int i=max/2 - 1; i >= 0; i--) {
   maxheapify(a, max, i);
  }
  
- //루트 노드와 마지막 값을 swap해서 자리를 바꾸고
+ //max 노드와 -1을 한 마지막 값(i)을 swap해서 자리를 바꾸고
  //배열의 크기를 1 줄여 마지막은 힙의 일부가 아니도록 수정함
  for(int i=max - 1; i > 0; i--){
   int temp = a[0];
   a[0] = a[i];
   a[i] = temp; //swap
-  lastNode -= 1;
   maxHeapify(a, 0);
  }
 }
