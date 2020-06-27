@@ -64,11 +64,16 @@ public static void main(String[] args) {
 }
 
 public static void heapSort(int[] a) {
- int max = a.length-1;
+ int max = a.length;
  
- //마지막 노드의 부모 노드에서 시작
- int lastNode = a.length;
- for(int i= lastNode / 2; i>=0; i--){
+ //build Heap 
+ for(int i=max/2 - 1; i >= 0; i--) {
+  maxheapify(a, max, i);
+ }
+ 
+ //루트 노드와 마지막 값을 swap해서 자리를 바꾸고
+ //배열의 크기를 1 줄여 마지막은 힙의 일부가 아니도록 수정함
+ for(int i=max - 1; i > 0; i--){
   int temp = a[0];
   a[0] = a[i];
   a[i] = temp; //swap
@@ -77,36 +82,30 @@ public static void heapSort(int[] a) {
  }
 }
 
-public static void maxHeapify(int[] a, int parent) {
-  int length = a.length;
-  int leftChild = i*2;
-  int rightChild = i*2+1;
-  int child = 0;
+//이진트리로 구성하기 
+public static void maxHeapify(int[] a, int parent, int i) {
+  int parent = i;
+  int leftChild = i*2+1;
+  int rightChild = i*2+2;
   
-  if(leftChild > length || rightChild > length) {
-    return; //자식노드가 없다면 종료
+  if(leftchild < max && a[parent] < a[leftchild]) {
+    parent = leftChild; 
+    
+  }else if(rightChild < max && a[parent] < a[rightChild]) {
+    parent = rightChild;
   }
-  
-  //왼쪽 오른쪽 중에서 더 큰 값을 child에 저장한다.
-  if(a[leftChild] > arr[rightChild]) {
-    child = leftChild;
-  }else {
-    child = rightChild;
-  }
-  
-  //부모가 자식보다 큰 경우 종료
-  if(a[parent] >= arr[child]) {
-    return;
-  }
-  
+
   //swap
-  int temp = a[parent];
-  a[parent] = a[child];
-  a[child] = temp; 
+  if(i != parent) {
+    int temp = a[parent];
+    a[parent] = a[i];
+    a[i] = temp;
+    
+    //재귀호출
+    maxheapify(a, max, parent); 
+  }
+ }
   
-  //재귀적 호출로 더이상 바뀌지 않을 때까지 반복
-  maxHeapify(arr, child);
-}
 ```
 <br>
 
@@ -114,7 +113,10 @@ public static void maxHeapify(int[] a, int parent) {
 
 >부모 노드 구하기: a[parent/2]    
 >부모의 왼쪽 자식 노드 구하기: a[parent x2]   
->부모의 오른쪽 자식 노드 구하기: a[parent*2+1]   
+>부모의 오른쪽 자식 노드 구하기: a[parent*2+1]
+<br>
+
+백준 알고리즘 2751번을 힙 정렬로 푼 분이 계셔서 참고했는데 left, right값에 +1씩 해줘 계산을 하는 걸 보았다. 음...무슨 말인지 확실하게 이해할 필요가 있을 것 같다. 
 
 <br>
 <br>
