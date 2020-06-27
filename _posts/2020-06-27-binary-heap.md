@@ -115,6 +115,12 @@ public static void maxHeapify(int[] a, int parent) {
 **부모의 왼쪽 자식 노드 구하기: a[parent*2]**    
 **부모의 오른쪽 자식 노드 구하기: a[parent*2+1]**     
 <br>
+<br>
+<br>
+<br>
+<br>
+
+
 
 
 
