@@ -49,7 +49,7 @@ BST는 임의의 값 찾기에 O(log(n))을 가져 평균적으로 O(n)시간을
 <br>
 
 **Referenced by**   
-https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/27074221#27074221
+<https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/27074221#27074221>
 <br>
 <br>
 <br>
@@ -109,13 +109,12 @@ public static void maxHeapify(int[] a, int parent) {
 }
 ```
 <br>
-<참고>   
 
-**부모 노드 구하기: a[parent/2]**         
+**<참고>**   
 
-**부모의 왼쪽 자식 노드 구하기: a[parent*2]**           
-
-**부모의 오른쪽 자식 노드 구하기: a[parent*2+1]**              
+>부모 노드 구하기: a[parent/2]    
+>부모의 왼쪽 자식 노드 구하기: a[parent x2]   
+>부모의 오른쪽 자식 노드 구하기: a[parent*2+1]   
 
 <br>
 <br>
