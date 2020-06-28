@@ -116,7 +116,10 @@ public static void maxHeapify(int[] a, int parent, int i) {
 <br>
 
 백준 알고리즘 2751번을 힙 정렬로 푼 분이 계셔서 참고했는데 left, right값에 +1씩 해줘 계산을 하는 걸 보았다. 음...무슨 말인지 확실하게 이해할 필요가 있을 것 같다. 
+<br>
 
+## 추가
+for문 돌 때 인덱스를 0부터 돌때는 왼쪽 자식노드는 i*2 + 1, 오른쪽은 i*2+2 라고 한다. 
 <br>
 <br>
 <br>
