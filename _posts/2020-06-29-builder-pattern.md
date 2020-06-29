@@ -159,7 +159,7 @@ public class Pet {
         petName == null ||
         ownerName == null ||
         address == null ||
-        telephone null) {
+        telephone == null) {
         throw new IllegalStateException("Cannot create Pet Object");
       }
       
