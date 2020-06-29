@@ -84,7 +84,7 @@ public void illegalBuild() {
     .withAnimal(Animal.PUPPY)
     .withpetName("sam")
     .withOwnerName("jane")
-    .build(); //
+    .build(); //예외발생
 }
 ```
 <br>
