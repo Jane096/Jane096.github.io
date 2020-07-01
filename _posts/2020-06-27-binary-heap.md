@@ -56,7 +56,6 @@ BST는 임의의 값 찾기에 O(log(n))을 가져 평균적으로 O(n)시간을
 
 ## Java로 Heap 구현하기 
 ```java
-//최대힙 정렬
 
 public static void main(String[] args) {
   int[] arr = {3, 5, 1, 7, 35, 24};
@@ -68,7 +67,7 @@ public static void heapSort(int[] a) {
  
  //build Heap: 힙인지 아닌지 판별 여부(heapify 연산 가능 여부)
  for(int i=max/2 - 1; i >= 0; i--) {
-  maxheapify(a, max, i);
+  heapify(a, max, i);
  }
  
  //max 노드와 -1을 한 마지막 값(i)을 swap해서 자리를 바꾸고
@@ -77,20 +76,20 @@ public static void heapSort(int[] a) {
   int temp = a[0];
   a[0] = a[i];
   a[i] = temp; //swap
-  maxHeapify(a, 0);
+  heapify(a, i, 0);
  }
 }
 
 //이진트리로 구성하기 
-public static void maxHeapify(int[] a, int parent, int i) {
+public static void heapify(int[] a, int length, int i) {
   int parent = i;
   int leftChild = i*2+1;
   int rightChild = i*2+2;
   
-  if(leftchild < max && a[parent] < a[leftchild]) {
+  if(leftchild < length && a[parent] < a[leftchild]) {
     parent = leftChild; 
     
-  }else if(rightChild < max && a[parent] < a[rightChild]) {
+  }else if(rightChild < length && a[parent] < a[rightChild]) {
     parent = rightChild;
   }
 
@@ -101,7 +100,7 @@ public static void maxHeapify(int[] a, int parent, int i) {
     a[i] = temp;
     
     //재귀호출
-    maxheapify(a, max, parent); 
+    heapify(a, length, parent); 
   }
  }
   
