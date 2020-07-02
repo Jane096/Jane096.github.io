@@ -230,8 +230,8 @@ output
 시간복잡도는 여전히 O(n)의 복잡도를 갖는다고 한다(점근적 복잡도에 영향을 받지 않음!)
 <br>
 
-**Referenced by**
-(https://www.geeksforgeeks.org/minimum-element-in-a-max-heap/)
+**Referenced by**    
+<https://www.geeksforgeeks.org/minimum-element-in-a-max-heap/>
 <br>
 <br>
 <br>
