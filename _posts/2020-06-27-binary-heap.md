@@ -122,6 +122,119 @@ for문 돌 때 인덱스를 0부터 돌때는 왼쪽 자식노드는 i*2 + 1, �
 <br>
 <br>
 <br>
+
+## 최대힙 정렬(heap sort)에서 최소값 찾아보기
+
+```java
+package backjoon_test;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+class heap2959 {
+	 public static void heapSort(int[] a) {
+		 int max = a.length;
+         
+         for(int i=max / 2 - 1; i>=0; i--) {
+             heapify(a, max, i);
+         }
+        
+         //크기를 줄여가며 반복적으로 힙을 구성 
+         for(int i=max - 1; i>0; i--) {
+             int temp = a[0];
+             a[0] = a[i];
+             a[i] = temp;
+             heapify(a, i, 0);
+         }
+      }
+    
+     public static void heapify(int[] a, int length, int i) {
+         int parent = i;
+         int leftchild = i*2 + 1;
+         int rightchild = i*2+2;
+         
+         if(leftchild < length && a[parent] > a[leftchild]) {
+             parent = leftchild;
+         }else if(rightchild < length && a[parent] > a[rightchild]) {
+             parent = rightchild;
+         }
+         
+         if(i != parent) {
+             int temp = a[parent];
+             a[parent] = a[i];
+             a[i] = temp;
+             heapify(a,length, parent);
+             System.out.println(Arrays.toString(a));
+         }
+     }
+     
+     //추가된 method
+     public static int findMin(int[] a, int size) {
+    	 int s = size;
+    	 int min = a[s / 2]; //리프노드 인것만 확인하면 됨(narrow down)
+    	 
+    	 for(int i = s / 2 + 1; i<s; i++) {
+    		 min = Math.min(min, a[i]);
+    	 }
+    	 return min;
+     }
+     
+     public static void main(String[] args) {
+         Scanner sc = new Scanner(System.in);
+         System.out.println("배열크기: ");
+         int size = sc.nextInt();
+         
+         int[] arr = new int[size];
+         
+         System.out.println("배열 숫자입력: ");
+         for(int i=0; i<arr.length; i++) {
+             arr[i] = sc.nextInt();
+         }
+         
+         heapSort(arr);
+         int answer = findMin(arr, size);
+         
+         System.out.println("최종정렬: " + Arrays.toString(arr));
+         System.out.println("최소값: " + answer);
+     }
+    }
+
+```
+<br>
+
+```
+output
+배열크기: 
+5
+배열 숫자입력: 
+5
+2
+3
+4
+1
+[5, 1, 3, 4, 2]
+[1, 4, 3, 5, 2]
+[1, 4, 3, 5, 2]
+[4, 5, 3, 2, 1]
+최종정렬: [5, 3, 4, 2, 1]
+최소값: 1
+```
+<br>
+
+최소값을 찾을 때, 리프노드가 있는 노드는 대상에서 제외하고 보는 것이 더 빠르다.   
+
+**Leaf Node?** 자식노드가 없는 가장 하위의 노드를 의미한다
+{: .notice--info}
+
+때문에 배열을 절반으로 분리하여 모든 노드를 확인할 필요가 없게 한다. 그러나 확인할 대상이 줄어들어도 
+시간복잡도는 여전히 O(n)의 복잡도를 갖는다고 한다(점근적 복잡도에 영향을 받지 않음!)
+<br>
+
+**Referenced by**
+(https://www.geeksforgeeks.org/minimum-element-in-a-max-heap/)
+<br>
+<br>
+<br>
 <br>
 <br>
 
