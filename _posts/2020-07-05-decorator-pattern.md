@@ -92,6 +92,12 @@ BufferedOutputStream이 파일을 저장하는데 필요한 호출들을 캐시�
 
 대신 OutputStream은 체인을 할 때 정의하는 순서가 매우 중요하므로 기억하고 있자
 {: .notice--info}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 
