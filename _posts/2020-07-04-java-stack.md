@@ -211,6 +211,62 @@ public class IntStack {
 <br>
 <br>
 <br>
+
+## Codility Brackets로 스택 문제 풀이
+
+>A string S consisting of N characters is considered to be properly nested if any of the following conditions is true:
+><br>
+>- S is empty;
+>- S has the form "(U)" or "\[U]" or "{U}" where U is a properly nested string;    
+>- S has the form "VW" where V and W are properly nested strings.   
+>
+>For example, the string "{\[()()]}" is properly nested but "(\[)()]" is not.
+<br>
+<br>
+
+```java
+import java.util.Stack;
+
+class Solution {
+     public int solution(String S) {
+       Stack<Character> stack = new Stack<>();
+       
+       for(char start : S.toCharArray()){
+           if(start == '{' || start == '[' || start == '(') {
+            stack.push(start);    
+           }else{
+            if(stack.isEmpty()) {
+               return 0;
+           }
+           char end = stack.pop();
+           
+           if(start == ')' && end  != '(') return 0;
+           if(start == '}' && end  != '{') return 0;
+           if(start == ']' && end  != '[') return 0;    
+           } 
+       }
+       if(!stack.isEmpty()) return 0;
+       return 1;
+    }
+}
+```
+<br>
+
+util패키지 안에 Stack을 import 한 후, 입력 받은 String을 for-each문을 이용해 한 글자씩 읽어오도록 한다. 
+그 중에서 Stack안에 push할 글자들은 '{' '\[' '(' 이다. 즉, Stack 안에는 괄호의 시작 부분만 들어가게 되고 닫힌 괄호들은 
+그대로 String안에 남게 된다. 
+<br>
+
+괄호 시작 부분만 들어있는 Stack에 pop을 하게 되면 end는 열린괄호 부분만을 가리키게 되고 이 후 조건문 안에 start는 
+String에 남아있는 닫힌 괄호를 가리켜 두가지를 비교하게 된다.(변수명 때문에 헷갈릴 여지가 있을 듯...) 
+<br>
+
+'(' 다음에 ')'가 오지 않으면 0을 리턴하게 해서 nested인지 아닌지를 확인하면 된다. 
+Stack이 pop이 모두 완료되면 최종 Stack은 비어있어야 하는데 비어있지 않다면 0을 리턴하고 비어있다면 1을 리턴하면 된다.
+
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
