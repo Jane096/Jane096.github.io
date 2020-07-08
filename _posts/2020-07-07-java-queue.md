@@ -4,7 +4,7 @@ layout: single
 read_time: true    
 comments: true   
 categories: 
- - Design pattern  
+ - Data structure  
 toc: true    
 toc_sticky: true    
 toc_label: contents    
