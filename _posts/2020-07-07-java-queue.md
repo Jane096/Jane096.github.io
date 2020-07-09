@@ -211,6 +211,77 @@ front, rear, num의 값은 변동이 없다. (비어있을 때는 예외를 발�
 <br>
 <br>
 <br>
+
+## 프로그래머스 - 기능개발
+
+```java
+
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+        Queue<Integer> works = new LinkedList<>();
+        
+        for(int i=0; i<progresses.length; i++) {
+            int leftover = 100 - progresses[i];
+            if(leftover % speeds[i] != 0) {
+                works.offer(leftover / speeds[i] + 1);    
+            }else{
+                works.offer(leftover / speeds[i]);
+            }
+        }
+        
+        List<Integer> list = new ArrayList<>();
+        int prev = works.poll();
+        int count = 1;
+        
+        while(!works.isEmpty()) {
+            int current = works.poll();
+            if(prev >= current) {
+                count++;
+            }else{
+                list.add(count);
+                count = 1;
+                prev = current;
+            }
+        }
+        list.add(count);
+        
+        int[] answer = new int[list.size()];
+        for(int i=0; i<list.size(); i++) {
+            answer[i] = list.get(i);
+        }
+        return answer;
+    }
+}
+```
+<br>
+**기능개발 문제 -> ** <https://programmers.co.kr/learn/courses/30/lessons/42586>
+
+프로그래머스에서 Queue를 활용하여 푸는 문제 중 기능개발 문제에 적용해서 풀어보았다. 
+100% 에서 현재 진행된 만큼의 수를 빼고, 그 남은 양을 각자의 속도로 며칠 안에 할 수 있는지 갯수를 세어보는 문제이다. 
+<br>
+
+첫번째 반복문에서는 남은 일 수가 확실하게 떨어지지 않을 때만 1일을 더해줘서 일 수를 체크하면 된다.
+while문이 시작되기 전에 첫번째 값을 poll해서 미리 변수 prev에 저장해두고 그 다음 반복문 안에서 두번째 값을 poll해 current 변수에 담아준다. 
+prev와 current를 비교해 prev가 크다면 count를 누적하고 그렇지 않다면 그대로 count 값을 list에 담아준다. 
+<br>
+<br>
+
+list에 담고 나서는 다른 숫자를 비교해야 하기 때문에 1로 다시 초기화 한 후, Queue가 모두 poll 될 때 까지 반복문을 돌리면 모든 값들이 확인이 된다. 
+list에 최종적으로 다 담기게 되면 그 사이즈 만큼 answer배열 크기를 지정하고 간단히 list의 모든 값을 읽어오기만 하면 된다. 
+<br>
+<br>
+<br>
+
+### 놓친 점
+
+스택에 남은 일 수를 계산해 넣는 부분은 금방 해결을 했지만 여전히 요소 간 비교해야 하는 부분에서 많이 막히는 것 같다. 
+어떻게 하면 효율적으로 값을 비교할 수 있는지 확실하게 그림이 그려지지 않는 것 같다. 
+또한 else에서 count를 1로 초기화 시켜주어야 하는 점도 놓치기 쉬운 부분일거라고 생각한다. 
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
