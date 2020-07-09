@@ -256,7 +256,9 @@ class Solution {
 }
 ```
 <br>
-**기능개발 문제 -> ** <https://programmers.co.kr/learn/courses/30/lessons/42586>
+
+**기능개발 문제**  
+<https://programmers.co.kr/learn/courses/30/lessons/42586>
 
 프로그래머스에서 Queue를 활용하여 푸는 문제 중 기능개발 문제에 적용해서 풀어보았다. 
 100% 에서 현재 진행된 만큼의 수를 빼고, 그 남은 양을 각자의 속도로 며칠 안에 할 수 있는지 갯수를 세어보는 문제이다. 
