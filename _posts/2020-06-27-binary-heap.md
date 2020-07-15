@@ -30,6 +30,7 @@ last_modified_at: 2020-06-27
 <br>
 
 왼쪽과 오른쪽으로 형제 사이에 대소관계를 비교해 구성하는 이진 검색 트리와의 차이점이 바로 이 부분이다. 
+형제 관계의 대소관계가 일정하지 않으나 부모와 자식 요소의 관계만 일정하다면 힙이라고 할 수 있다. 
 <br>
 <br>
 <br>   
@@ -54,7 +55,12 @@ BST는 임의의 값 찾기에 O(log(n))을 가져 평균적으로 O(n)시간을
 <br>
 <br>
 
-## Java로 Heap 구현하기 
+## 힙 정렬
+
+선택 정렬을 응용한 것으로, **가장 큰 값을 루트에 위치** 하는 특징을 이용하는 정렬 알고리즘 이다. 힙에서 가장 큰 값인 루트를 꺼내는 작업을 반복하고 
+그 값을 늘어놓으면 배열은 정렬을 마친다. 
+
+## Java로 Heap 정렬 구현하기 
 ```java
 
 public static void main(String[] args) {
@@ -65,7 +71,7 @@ public static void main(String[] args) {
 public static void heapSort(int[] a) {
  int max = a.length;
  
- //build Heap: 힙인지 아닌지 판별 여부(heapify 연산 가능 여부)
+ //build Heap: 힙인지 아닌지 판별 여부(heapify 연산 가능 여부) - 초기상태의 배열이 힙이 아닐 수도 있기 
  for(int i=max/2 - 1; i >= 0; i--) {
   heapify(a, max, i);
  }
