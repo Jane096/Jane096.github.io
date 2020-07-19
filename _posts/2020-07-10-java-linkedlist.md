@@ -57,7 +57,7 @@ last_modified_at: 2020-07-10
 public class LinkedList<E> {
     //노드
     class Node<E> {
-        private E data;//입력한 데이터
+        private E data;//입력한 데이터(오로지 참조용임, 주의!)
         private Node<E> next;//포인터(다음 노드 참조용)
     	
         //constructor
@@ -100,8 +100,8 @@ public class LinkedList<E> {
             addFirst(obj);
         }else {
             Node<E> ptr = head;
-            while(ptr.next != null) {
-                ptr= ptr.next; //맨 마지막 노드를 가리키게됨
+            while(ptr.next != null) { 
+                ptr= ptr.next; //while문이 끝까지 돌아 다음 노드가 존재하지 않는다면 ptr은 맨 마지막 노드를 가리키게됨
             }
             ptr.next = current = new Node<E>(obj, null);//마지막은 next 값이 null이어야함(참조하는 값이 없어서)
             //ptr.next는 새로 삽입한 obj를 참조하도록 업데이트 해야함
