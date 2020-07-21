@@ -13,8 +13,10 @@ last_modified_at: 2020-07-20
 ---
 
 
-**static method** 란 객체를 생성하지 않아도 메서드를 호출할 수 있는 예약어 이다. 
+우리가 알고있는 일반 메서드는 자신의 클래스나 다른 클래스에 있는 경우, 항상 객체를 생성 후 불러올 수 있었다. 
+그러나 **static method**  객체를 생성하지 않아도 메서드를 호출할 수 있는 예약어 이다. 
 대표적인 예로 System.out.println()이 객체를 생성하지 않고도 쓸 수 있는 이유가 바로 static 키워드 때문이다.
+
 <br>
 <br>
 
@@ -43,7 +45,7 @@ This is a staticMethod
 <br>
 
 
-static 메서드의 가장 큰 특징은 **클래스 변수** 만 사용할 수 있다는 점이다. 
+static 메서드의 가장 큰 특징은 **클래스 변수** 만 사용할 수 있다는 점이다. (static이 붙은 변수!)
 <br>
 
 ```java
@@ -64,7 +66,7 @@ public class ReferenceStatic {
 ```
 <br>
 
-위의 staticMethodCallVariable 메서드는 컴파일 에러를 발생시킨다. 
+위의 staticMethodCallVariable 메서드는 name을 출력하는 부분에서 컴파일 에러를 발생시킨다. 
 static의 큰 특징이자 단점은 클래스 변수만을 사용할 수 있다는 점이다. 즉, name변수는 static이 붙지않은
 인스턴스 변수 이기 때문에 "static이 아닌 변수 이름은 static context에서 참조할 수 없다" 는 컴파일 에러를 발생시킨다. 
 <br>
