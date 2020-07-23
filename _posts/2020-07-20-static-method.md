@@ -113,6 +113,87 @@ Sunchoon
 <br>
 <br>
 <br>
+
+### static을 특이하게 사용해보기
+
+아래 처럼 어떤 클래스의 객체가 생성되면서 딱 한번만 불러야 하는 코드가 있다.
+<br>
+
+```java
+public class StaticBlock {
+  static int data = 1;
+  
+  public StaticBlock() {
+    System.out.println("StaticBlock Constructor");
+  }
+  
+  static {
+    System.out.println("First static Constructor");
+  }
+  
+  static {
+    System.out.println("Second static Constructor");
+  }
+  
+  public static int getData() {
+    return data;
+  }
+}
+```
+<br>
+
+**static{}** 형태의 static 블록은 객체 생성 전 딱 한번만 호출이 된다. 
+클래스 내에 선언되어 있어야 하며, 메서드 내에서는 선언이 불가능 하다는 특징이 있다. 
+<br>
+
+위의 코드를 봤을 때 static블록은 2개가 선언이 되어 있다. 즉, 여러개 선언이 가능하다. 
+선언할 때 순서대로 호출이 되기 때문에 선언되어있는 순서가 매우 중요하다. 
+<br>
+<br>
+
+```java
+public class StaticBlockCheck {
+  public static void main(String[] args) {
+    StaticBlockCheck check = new StaticBlockCheck();
+    check.makeStaticBlockObject();
+  }
+  
+  public void makeStaticBlockObject() {
+    System.out.println("Creating block1");
+    
+    StaticBlock block1 = new StaticBlock();
+    System.out.println("Created block1");
+    System.out.println("-------------------------");
+    System.out.println("Creating block2");
+    
+    StaticBlock block2 = new StaticBlock();
+    System.out.println("Created block2");
+  }
+}
+```
+<br>
+
+```bash
+<출력결과>
+
+Creating block1
+First static Constructor
+Second static Constructor
+StaticBlock Constructor
+Created block1
+----------------------
+Creating block2
+StaticBlock Constructor
+Created block2
+```
+<br>
+
+두개의 StaticBlock 객체를 만들었지만 결과를 보면 static 블록은 딱 1번만 호출이 되었다. 
+그리고 호출된 순서를 보자면 생성자보다 먼저 호출된 것을 확인할 수 있다. 이처럼, static블록은 
+클래스를 초기화 할 때 꼭 수행되어야 하는 작업이 있을 경우 유용하게 사용할 수 있다. 
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
