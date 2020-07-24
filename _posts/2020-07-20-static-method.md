@@ -146,7 +146,7 @@ public class StaticBlock {
 클래스 내에 선언되어 있어야 하며, 메서드 내에서는 선언이 불가능 하다는 특징이 있다. 
 <br>
 
-위의 코드를 봤을 때 static블록은 2개가 선언이 되어 있다. 즉, 여러개 선언이 가능하다. 
+위의 코드를 봤을 때 static블록은 2개가 선언이 되어 있다. static 블록은 꼭 하나가 아니라 여러개 선언이 가능하다. 
 선언할 때 순서대로 호출이 되기 때문에 선언되어있는 순서가 매우 중요하다. 
 <br>
 <br>
@@ -177,13 +177,13 @@ public class StaticBlockCheck {
 <출력결과>
 
 Creating block1
-First static Constructor
-Second static Constructor
+First static Constructor //1번만 호출
+Second static Constructor //1번만 호출
 StaticBlock Constructor
 Created block1
 ----------------------
 Creating block2
-StaticBlock Constructor
+StaticBlock Constructor //first, second static constructor 호출 안함
 Created block2
 ```
 <br>
