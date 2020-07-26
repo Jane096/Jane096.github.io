@@ -104,6 +104,100 @@ Child printName()
 <br>
 <br>
 <br>
+
+## final 키워드
+
+### class에 final을 사용하는 이유
+
+```java
+public final class FinalClass {
+  //skip
+}
+```
+<br>
+
+**"final"** 이라는 키워드는 영어 해석 그대로 "마지막" 이라는 의미이다. 
+상속에서 이 키워드는 Overriding을 해주거나 상속해주는 행위 자체를 할 수가 없다. 
+
+<br>
+<br>
+
+만약 FinalClass를 다른 클래스에 extends한다면 상속을 해줄 수 없다는 컴파일 에러가 발생한다. 
+이렇게 클래스에 final을 사용하는 이유는 어떠한 클래스의 기능이 매우 중요해서(ex. String) 조금이라도 
+변경이 되거나 더이상의 확장을 해서는 안되는 클래스일 경우 final 키워드를 사용한다. 
+<br>
+<br>
+<br>
+
+### method에 final 키워드를 사용하는 이유
+
+```java
+public abstract class finalMethodClass {
+  public final void printLog(String data) {
+    //기능정의
+  }
+}
+```
+<br>
+
+메서드에 final을 선언하게 되면 해당 클래스를 상속할 때 Overriding이 불가능 하다는 컴파일 에러를 발생시킨다. 
+해당 메서드를 변경하지 못하도록 막을 수 있는 기능이 final 이다. 하지만 많이 쓰는일은 없다고 한다. 
+<br>
+<br>
+<br>
+
+### 변수에 final을 사용하는 이유
+
+```java
+public class FinalVariable {
+  final int instanceVariable;
+}
+```
+<br>
+
+위의 클래스는 인스턴스 변수 부분에서 에러를 발생시킨다. 인스턴스 변수에 final이 붙은 경우 
+저렇게 선언해서는 안된다. 
+<br>
+<br>
+
+```java
+final int instanceVariable = 1;
+```
+<br>
+
+final 키워드를 변수에 사용할 경우 기억해야 할 것은 반드시 초기값을 지정해주어야 한다는 것이다. 
+생성자나 메서드에서 초기화 하는 것은 final의 의도에서 벗어나기 때문에 인스턴스 변수나 클래스 변수에 final을 붙이는 경우 
+초기화 하는 것을 잊지말아야한다. 
+<br>
+<br>
+
+매개변수에도 final 키워드를 사용할 수 있는데, 매개변수의 경우 이미 초기화되어 값이 넘어오기 때문에 
+**public void method(final int test)..."** 이런식으로 원래 쓰던 방식처럼 쓸 수 있다. 
+<br>
+<br>
+<br>
+
+### 주의해야할 점 
+
+```java
+public void method(final int parameter) {
+  final int instanceVariable;
+  instanceVariable = 2;
+  
+  instanceVariable = 3;
+  parameter = 4;
+}
+```
+<br>
+
+2로 초기화한 instanceVariable 부분은 컴파일에러를 발생시키지 않는다. 하지만 해당 변수는 final로 선언되어 있기 떄문에 
+3으로 값을 변경하여 사용해서는 안된다. parameter 변수도 마찬가지로 이미 초기화 된 값을 넘겨 줬기 때문에 
+새로운 값을 할당해서는 안된다. 
+<br>
+<br>
+<br>
+
+
 <br>
 <br>
 <br>
