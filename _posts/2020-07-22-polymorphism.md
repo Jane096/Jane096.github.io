@@ -23,19 +23,19 @@ public class Parent {
   }
 }
 
-public class ChildOther extends Parent {
+public class Child extends Parent {
   public ChildOther() {
-    System.out.println("ChildOther Constructor");
+    System.out.println("Child Constructor");
   }
   
   public void printName() {
-    System.out.println("ChildOther - printName()");
+    System.out.println("Child - printName()");
   }
 }
 ```
 <br>
 
-위와 같이 parent를 상속하는 ChildOther라는 자식클래스가 있다고 생각해보자. 
+위와 같이 parent를 상속하는 Child라는 자식클래스가 있다고 생각해보자. 
 (부모클래스를 상속하는 자식클래스는 여러개 만들 수 있다!)
 <br>
 <br>
@@ -49,7 +49,7 @@ public class InheritancePoly {
   
   public void callPrintName() {
     Parent parent 1 = new Parent();
-    Parent parent 2 = new ChildOther();
+    Parent parent 2 = new Child();
     
     parent1.printName();
     parent2.printName();
@@ -66,10 +66,10 @@ printName()메서드를 각각 호출해본다. (하나는 parent, 하나는 Chi
 ```bash
 Parent Constructor
 Parent Constructor
-ChildOtherConstructor
+Child Constructor
 
 Parent printName()
-ChildOther printName()
+Child printName()
 
 ```
 <br>
