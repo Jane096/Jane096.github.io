@@ -21,7 +21,7 @@ catch에서 당연히 사용이 불가하다.
 ```java
 public class ExceptionVariable {
   public static void main(String[] args) {
-    ExceptionVariable sample = new Exceptio Variable();
+    ExceptionVariable sample = new ExceptionVariable();
     sample.checkVariable();
   }
 
@@ -54,7 +54,7 @@ try-catch 이후의 출력문이 실행된다. 하지만 밑에 처럼 바꾸면
 ```java
 public class ExceptionVariable {
   public static void main(String[] args) {
-    ExceptionVariable sample = new Exceptio Variable();
+    ExceptionVariable sample = new ExceptionVariable();
     sample.checkVariable();
   }
 
@@ -83,3 +83,36 @@ intArray가 누군지 모르기 때문에 **"cannot find symbol"**
 <br>
 <br>
 
+```java
+public class ExceptionVariable {
+  public static void main(String[] args) {
+    ExceptionVariable sample = new ExceptionVariable();
+    sample.checkVariable();
+  }
+
+  public void checkVariable() {
+    int[] intArray = null; //null로 선언
+
+    try{
+      intArray = new int[5]; 
+      System.out.println(intArray[5]);
+    }catch (Exception e) {
+      System.out.println(intArray.length);
+    }
+    System.out.println("This code must run");
+  }
+}
+```
+<br>
+
+```
+출력결과
+5
+This code must run
+```
+<br>
+
+이런식으로 변수만 미리 설정을 해 놓는다면 null이라도 
+try블록 내의 실행될 모든 문장이 무시되는게 아니기 때문에 
+정상적으로 컴파일이 된다. catch에서 사용할 변수는 
+꼭 try블록 앞에 선언해야 된다는 점을 잊지말아야한다.
