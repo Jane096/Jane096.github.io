@@ -83,8 +83,8 @@ hashcode로 특정한 숫자를 부여해 주는 것이 hashtable의 성능을 �
 
 **Referenced by** <br>
 
-https://stackoverflow.com/questions/14608683/java-what-happens-if-hashcode-is-not-overriden <br>
-https://www.geeksforgeeks.org/override-equalsobject-hashcode-method/
+<https://stackoverflow.com/questions/14608683/java-what-happens-if-hashcode-is-not-overriden> <br>
+<https://www.geeksforgeeks.org/override-equalsobject-hashcode-method/>
 <br>
 <br>
 <br>
