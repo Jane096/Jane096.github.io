@@ -1,5 +1,5 @@
 ---
-title: "Arraylistdp addAll을 사용하여 값을 넣어보기"
+title: "Arraylist에 addAll을 사용하여 값을 넣어보기"
 layout: single    
 read_time: true    
 comments: true   
