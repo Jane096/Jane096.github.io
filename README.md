@@ -8,6 +8,19 @@
 <br>
 <br>
 <br>
+
+## 대용량 트래픽 로그인 기술을 위한 서버의 부하 문제 해결 포스팅
+
+#### Scale-up VS Scale-out
+
+<https://jane096.github.io/project/how-to-solve-server-overload-p1/>
+
+<br>
+
+#### Sticky Session, Session-Clustering, in-memory Database 비교분석
+
+<https://jane096.github.io/project/how-to-solve-server-overload-p2/>
+
 <br>
 <br>
 <br>
