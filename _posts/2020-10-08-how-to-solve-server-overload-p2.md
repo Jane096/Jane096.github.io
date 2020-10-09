@@ -25,7 +25,7 @@ last_modified_at: 2020-10-07
 <br>
 <br>
 
-![현재상황](https://user-images.githubusercontent.com/58355531/95462384-6946ac00-09b2-11eb-8666-82413f5224ed.PNG)
+![현재상황](https://user-images.githubusercontent.com/58355531/95462384-6946ac00-09b2-11eb-8666-82413f5224ed.PNG){: .align-center}
 
 <br>
 
@@ -53,7 +53,11 @@ last_modified_at: 2020-10-07
 <br>
 
 이렇게 고정된 세션으로 요청이 갈 수 있도록 중간에 이정표와 같은 역할이 필요한데요, 그것을 [로드 밸런서](https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/classic/introduction.html)
-라는 기술이 수행하게 됩니다. (로드 밸런서도 유형에 따라 3가지로 구분한다고 합니다. 제가 링크로 건 유형은 Classic 버전입니다.)
+라는 기술이 수행하게 됩니다. 
+
+   > 로드 밸런서도 유형에 따라 3가지로 구분한다고 합니다. 제가 링크로 건 유형은 Classic 버전입니다.
+
+<br>
 
 로드 밸런서는 요청에 따라 보내야 할 인스턴스를 찾기 위해서 **AWSELB** 라는 특별한 쿠키를 사용합니다. 로드 밸런서가 한 요청을 받게 되면 
 우선적으로 요청에 쿠키정보가 있는지 부터 확인합니다. 쿠키의 정보를 확인했다면, 해당 요청은 로드 밸런서에 의해 해당 쿠키가 생성되어 있는
@@ -91,7 +95,69 @@ last_modified_at: 2020-10-07
 
 ## Session-Clustering 이란?
 
+![클러스터링](https://user-images.githubusercontent.com/58355531/95583792-a32db600-0a77-11eb-9a45-0c99ff0ff110.PNG)
 
+<br>
+
+**Session Clustering** 이란 각각의 WAS에 있는 세션을 묶어 동일한 세션으로 관리하는 방법입니다. **Sticky-Session** 에서 언급되었던 
+분산 환경 활용을 제대로 못하는 단점을 클러스터링 기술에서는 어느 정도 해결이 가능합니다. 세션 클러스터링에서는 하나의 서버가 
+다운되어 버리면 해당 WAS의 데이터를 다른 WAS가 대신 관리할 수 있기 때문에 데이터의 유실이나 전면 장애의 가능성을 낮출 수 있습니다. 
+
+**Session Clustering** 의 경우 사용하는 WAS 마다 클러스터링 하는 방법이 다르기 때문에 현재 사용하고 있는 WAS의 공식 문서를 
+참고하시는게 좋습니다.
+
+<br>
+<br>
+
+![tomcat버전](https://user-images.githubusercontent.com/58355531/95581888-bc813300-0a74-11eb-9e14-ca71a1834cee.PNG){: .align-center}
+
+저는 **스프링 부트**로 개발을 진행하고 있고 스프링 부트에는 Tomcat이 내장되어 있기 때문에 Tomcat 공식문서를 참고하여 작성하였습니다.
+위의 사진과 같이 제 프로젝트에는 Tomcat 9가 이미 들어와있네요. 이 글에서는 [Tomcat 9 Clustering](https://tomcat.apache.org/tomcat-9.0-doc/cluster-howto.html)을 기준으로 설명하겠습니다.
+
+<br>
+<br>
+
+### All-to-all Replication
+
+![alltoallreplication](https://user-images.githubusercontent.com/58355531/95587119-9bbcdb80-0a7c-11eb-9d8b-1cdbeb099f24.PNG){: .align-center}
+
+<br>
+
+톰캣은 여러 Session manager 중에서 `DeltaManager` 와 `BackupManager`를 이용한 클러스터링 방법을 소개하고 있습니다. 먼저 `DeltaManager` 를 이용하여 한 세션의 상태를 모두 다른 세션으로 복사하는 **All-to-all Replication** 을 먼저 설명하도록 하겠습니다. 
+
+**All-to-all** 방식은 모든 세션들이 동일한 데이터를 가질 수 있도록 모든 데이터를 복사합니다. 때문에 데이터의 불일치 문제를 해결할 수 있고 하나의 서버가 다운되어도 다른 서버가 대신 작동하기 때문에 전면 장애 우려도 해결됩니다. 그러나 공식문서에서는 적은 갯수의 세션을 클러스터링 했을 땐 괜찮지만 **4개 이상의 세션** 을 클러스터링 했을 경우 추천하지 않는 방식이라고 합니다. 
+
+왜냐하면 **"모든"** 데이터를 각각의 Tomcat 노드에게 전달해야 해야 하고 만약 배포하는 노드가 아닐 경우에도 복사를 진행하기 때문에 
+불필요하게 메모리를 차지하게 되고, 결국은 성능이 떨어질 수 있기 때문입니다. 
+
+<br>
+<br>
+
+### Primary-Secondary Session Replication
+
+이러한 문제점을 극복하기 위해 다른 방법으로 `BackupManager`를 이용한 세션 복사 방법이 있습니다.
+이 방식은 오직 배포된 어플리케이션의 노드에만 복사를 진행하고, 하나의 백업 노드에 세션 데이터를 복사하기 때문에 불필요한 
+작업을 줄일 수 있습니다. 사용하는 세션의 갯수가 늘어날 수록 `BackupManager`를 사용하는 것은 필연적일 수 밖에 없습니다. 
+
+<br>
+
+![백업매니저](https://user-images.githubusercontent.com/58355531/95598032-61f2d180-0a8a-11eb-905c-9b05e1283aa7.PNG)
+
+<br>
+
+클라이언트로 부터 첫 요청을 받은 서버에 세션을 생성하고 해당 인스턴스는 **Primary node**로 선정되고 모든 요청을 Sticky하게 받게 됩니다. 그리고 다른 서버들 중에 하나가 **Backup node(=Secondary node)** 로 선정이 되고 나머지는 **Proxy node** 가 됩니다. 
+
+`Primary node`의 세션데이터는 오직 `Backup node`에만 복사가 되며 나머지 `Proxy`에는 세선 아이디와 `Primary`, `Seconday node`의 주소값만을 가지고 있게 됩니다. 만약 `Proxy`로 요청이 들어온다면 `Proxy`는 `Primary`에게 해당 세션 아이디의 데이터를 요청하여 받아오게 되고
+최종적으로 클라이언트는 모든 세션으로 부터 동일한 값을 불러올 수 있어 **데이터 불일치**의 문제점이 해결됩니다. 
+
+**하지만** 모든 요청을 받는 `Primary` 노드가 다운이 되어 버리고 로드 밸런서에 의해 선정된 다른 노드에 세션 정보가 없다고 가정을 해봅시다.
+해당 노드는 데이터를 불러오기 위해 다른 서버에게 세션 데이터가 있는지 물어보고 데이터가 존재하는 서버에게 응답을 받습니다. 이 후 모든 데이터를 복사하고 해당 노드는 `Primary` 로써 수행을 하게 됩니다. 
+
+만약 대용량 트래픽에 상황에서 수 많은 서버를 사용하게 되면 빈번하게 복사가 일어나게 되고 결국은 **성능의 저하**로 이어질 수 있습니다. 
+
+<br>
+
+> Session Clustering의 문제점을 생각해보며, 이러한 단점을 개선시켜 줄 수 있는 in-memory Database 사용 방법은 어떨까요?
 
 
 <br>
@@ -101,14 +167,20 @@ last_modified_at: 2020-10-07
 #### Referenced by 
 
 - What is a Classic Load Balancer?  
-<https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html>
+  <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html>
 
 - Configure sticky sessions for your Classic Load Balancer   
-<https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html>
+  <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html>
 
 - Why you should never use Sticky sessions   
-<https://dev.to/gkoniaris/why-you-should-never-use-sticky-sessions-2pkj>
+  <https://dev.to/gkoniaris/why-you-should-never-use-sticky-sessions-2pkj>
 
+- Apache Tomcat 9 Clustering/Session Replication How-To Official documentation   
+  <https://tomcat.apache.org/tomcat-9.0-doc/cluster-howto.html>
+  
+- About Tomcat BackupManager
+  <https://tkstone.blog/2018/09/19/about-tomcat-backupmanager/>
+  
 <br>
 <br>
 <br>
