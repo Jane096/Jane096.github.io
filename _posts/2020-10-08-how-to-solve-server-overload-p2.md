@@ -178,7 +178,7 @@ last_modified_at: 2020-10-07
 - Apache Tomcat 9 Clustering/Session Replication How-To Official documentation   
   <https://tomcat.apache.org/tomcat-9.0-doc/cluster-howto.html>
   
-- About Tomcat BackupManager
+- About Tomcat BackupManager   
   <https://tkstone.blog/2018/09/19/about-tomcat-backupmanager/>
   
 <br>
