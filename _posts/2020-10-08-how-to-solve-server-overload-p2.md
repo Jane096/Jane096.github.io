@@ -145,9 +145,9 @@ last_modified_at: 2020-10-07
 
 <br>
 
-클라이언트로 부터 첫 요청을 받은 서버에 세션을 생성하고 해당 인스턴스는 **Primary node**로 선정되고 모든 요청을 Sticky하게 받게 됩니다. 그리고 다른 서버들 중에 하나가 **Backup node(=Secondary node)** 로 선정이 되고 나머지는 **Proxy node** 가 됩니다. 
+클라이언트로 부터 요청을 로드 밸런서에 의해 받은 서버에 세션을 생성하고 해당 인스턴스는 **Primary node**로 선정됩니다. 그리고 다른 서버들 중에 하나가 **Backup node(=Secondary node)** 로 선정이 되고 나머지는 **Proxy node** 가 됩니다. 
 
-`Primary node`의 세션데이터는 오직 `Backup node`에만 복사가 되며 나머지 `Proxy`에는 세선 아이디와 `Primary`, `Seconday node`의 주소값만을 가지고 있게 됩니다. 만약 `Proxy`로 요청이 들어온다면 `Proxy`는 `Primary`에게 해당 세션 아이디의 데이터를 요청하여 받아오게 되고
+`Primary node`의 세션 데이터는 오직 `Backup node`에만 복사가 되며 나머지 `Proxy`에는 세선 아이디와 `Primary`, `Seconday node`의 주소값만을 가지고 있게 됩니다. 만약 `Proxy`로 요청이 들어온다면 `Proxy`는 `Primary`에게 해당 세션 아이디의 데이터를 요청하여 받아오게 되고
 최종적으로 클라이언트는 모든 세션으로 부터 동일한 값을 불러올 수 있어 **데이터 불일치**의 문제점이 해결됩니다. 
 
 **하지만** 모든 요청을 받는 `Primary` 노드가 다운이 되어 버리고 로드 밸런서에 의해 선정된 다른 노드에 세션 정보가 없다고 가정을 해봅시다.
@@ -163,6 +163,59 @@ last_modified_at: 2020-10-07
 <br>
 <br>
 <br>
+
+## in-memory Database
+
+인 메모리 데이터베이스란 디스크나 SSD에 저장되는 데이터베이스와는 다르게 **"메모리"** 데이터 저장 목적으로 사용되는 데이터베이스를 말합니다.
+보통 디스크에 저장이 되면 읽고 쓰기가 느리기 때문에 시간이 걸리게 되는데 이러한 응답 시간을 줄이고자 설계된 것이 인 메모리 데이터베이스 
+입니다. 
+
+하지만 메모리에 저장되기 때문에 서버가 다운되거나 동작 과정 중에 데이터가 유실될 수 있는 가능성이 큽니다. 그래서 인 메모리 데이터베이스는
+이러한 단점을 커버하기 위해서 동작 중에 로그나 스냅샷(snapshots)를 이용하여 디스크에 데이터를 저장합니다. 
+
+**인 메모리 데이터베이스** 의 사용이 적합한 경우는 microsecond 단위의 응답시간을 요구하는 애플리케이션이나 실시간 분석, 세션 저장, 게임 순위 선정 등 트래픽이 비교적 많이 몰리는 상황에 적절하다고 합니다. 
+
+<br>
+<br>
+<br>
+
+### in-memory Database의 종류
+
+![db종류](https://user-images.githubusercontent.com/58355531/95645677-6ce64a00-0afc-11eb-99a6-32dda4260bdb.PNG){: .align-center}
+  > 출처: 위키피디아 List of in-memory Database <https://en.wikipedia.org/wiki/List_of_in-memory_databases>
+
+
+위키피디아에 의하면 in-memory Database는 이렇게나 많은 종류가 존재한다고 합니다. 조금 더 검색을 해본 결과, 저는 **Redis** 와 **Memcached** 를 고려해보기로 하는데 그 이유는 다음과 같습니다. 
+
+1. 무료 오픈소스 데이터베이스 이기 때문에 라이센스 비용이 대폭 절약된다.
+2. sub-milisecond 단위의 높은 응답 속도를 보여주기 때문에 대용량 트래픽을 고려하는 우리 프로젝트에 적절하다.
+3. **AWS** 라는 거대 클라우드 서비스에서 지원한다. 
+3. Key-Value 형태로 저장되기 때문에 같은 Key-Value 로 저장되는 세션 데이터를 다루는데 적합하다.
+
+<br>
+
+> 이러한 공통점을 가진 **Redis**와 **Memcached** 중에 어떤 것을 사용하는데 더 좋을지 차이점을 분석해보았습니다.
+
+<br>
+<br>
+<br>
+
+### Redis VS Memcached
+
+인 메모리 데이터베이스 이면서, 세션을 저장하는데 적합한 key-value 형태로 관리되고 속도도 빠른 이 두 데이터베이스의 차이점은 무엇일까요?
+
+
+
+
+<br>
+
+
+
+
+<br>
+<br>
+<br>
+
 
 #### Referenced by 
 
@@ -180,6 +233,12 @@ last_modified_at: 2020-10-07
   
 - About Tomcat BackupManager   
   <https://tkstone.blog/2018/09/19/about-tomcat-backupmanager/>
+  
+- What is an In-Memory Database?
+  <https://aws.amazon.com/ko/nosql/in-memory>
+  
+- Comparing Redis and Memcached
+  <https://aws.amazon.com/ko/nosql/in-memory>
   
 <br>
 <br>
