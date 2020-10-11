@@ -1,5 +1,5 @@
 ---
-title: "대용량 트래픽 로그인 기술을 위해서 서버의 부하를 어떻게 해결할까? Part 1"    
+title: "사용자가 늘어남에 따라 증가하는 트래픽을 견디기 위해 어떤 방식으로 서버를 확장해야할까?"    
 layout: single    
 read_time: true    
 comments: true   
@@ -52,8 +52,7 @@ last_modified_at: 2020-10-07
 또한 하나의 서버를 확장했기 때문에 대용량 트래픽이 몰려 서버가 다운이 되어버리면 전면적인 장애로 이어져 
 큰 타격을 볼 수 밖에 없습니다.
 
-  > `MySQL` 이라는 RDBMS를 우리 프로젝트에 사용을 하고 있는데 RDBMS는 Scale-up만 지원을 합니다. 대용량 트래픽 상황을 
-  > 고려하고 있는 만큼, 지속적인 확장이 불가하고 migration이 매우 어렵다면 다른 방법을 생각해봐야 할 것 같습니다.
+  > `MySQL` 이라는 RDBMS를 우리 프로젝트에 사용을 하고 있는데 RDBMS는 Scale-up만 지원을 합니다. 왜냐하면 트래픽이 몰리게 되면 쿼리수의 급격한 증가와 그에 따른 병목현상이 발생하기 때문입니다. cpu나 메모리 수를 늘려야 동시 실행 수준이 높아지기 때문에 수직확장이 더 알맞다고 합니다.그러나 우리는 대용량 트래픽 상황을 고려하고 있는 만큼, 지속적인 확장이 불가하고 migration이 매우 어렵다면 다른 방법을 생각해봐야 할 것 같습니다.
 
 <br>
 <br>
@@ -100,9 +99,7 @@ Scale-out 을 사용할 시 데이터의 불일치를 어떻게 해결할지 필
 <br>
 
 'FESTA' 라는 이벤트 추천 웹 서비스를 개발하면서 우리 프로젝트에는 어떤 방식이 더 어울리고, 더 효율성이 좋을까 생각해보았습니다.
-데이터베이스의 갱신(예를 들면 회원정보 수정같은 것)이 발생하긴 하지만 대용량 트래픽 만큼 드라마틱하게 일어나지 않고 
-오히려 이벤트 마감일이 다가오며 발생하는 다수의 접속자 요청을 처리하는 상황을 대비하기 위해 트래픽을 분산처리 시켜주는
-**Scale-out** 이 적합할 것 같다는 결론을 얻을 수 있었습니다! :) 
+이벤트 추천 서비스의 특성상 마감일이 다가오며 발생하는 조회수의 증가로 다수의 신청접수를 처리해야할 필요성을 느꼈습니다. 해당 처리는 단순하지만 동시 병행적으로 처리해야 하기 때문에 트래픽을 분산처리 시켜주는 **Scale-out** 이 적합할 것 같다는 결론을 얻을 수 있었습니다! :) 
 
 <br>
 
@@ -112,7 +109,7 @@ Scale-out 을 사용할 시 데이터의 불일치를 어떻게 해결할지 필
 <br>
 <br>
 
-#### Referenced by
+### Referenced by
 
 <https://zdnet.co.kr/view/?no=00000039151294>
 
@@ -120,10 +117,12 @@ Scale-out 을 사용할 시 데이터의 불일치를 어떻게 해결할지 필
 
 <https://cloudian.com/blog/scale-up-vs-scale-out-storage/>
 
+<https://cloud.google.com/solutions/elastically-scaling-your-mysql-environment>
+
 <br>
 <br>
 
-#### Project Github URL
+### Project Github URL
 
 [FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
 
