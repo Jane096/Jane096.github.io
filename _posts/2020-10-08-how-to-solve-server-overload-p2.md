@@ -1,5 +1,5 @@
 ---
-title: "대용량 트래픽 로그인 기술을 위해서 서버의 부하를 어떻게 해결할까? Part 2"    
+title: "사용자 수가 늘어남에 따라 증가하는 트래픽을 견디기 위해 설계한 분산 처리 환경에서 데이터의 불일치를 어떻게 해결할까? Part 1"    
 layout: single    
 read_time: true    
 comments: true   
@@ -8,7 +8,7 @@ categories:
 toc: true    
 toc_sticky: true    
 toc_label: contents    
-description: 서버 부하를 해결하기 위해 고려한 점은 자세하게 정리하기 위해 생성한 포스팅 - Sticky Session, Session-Clustering, in-memory Database
+description: 서버 부하를 해결하기 위해 고려한 점은 자세하게 정리하기 위해 생성한 포스팅 - Sticky Session, Session-Clustering 비교분석
 last_modified_at: 2020-10-07 
 ---
 
@@ -59,8 +59,8 @@ last_modified_at: 2020-10-07
 
 <br>
 
-로드 밸런서는 요청에 따라 보내야 할 인스턴스를 찾기 위해서 **AWSELB** 라는 특별한 쿠키를 사용합니다. 로드 밸런서가 한 요청을 받게 되면 
-우선적으로 요청에 쿠키정보가 있는지 부터 확인합니다. 쿠키의 정보를 확인했다면, 해당 요청은 로드 밸런서에 의해 해당 쿠키가 생성되어 있는
+로드 밸런서는 요청에 따라 보내야 할 인스턴스를 찾기 위해서 쿠키정보를 활용합니다. 로드 밸런서가 한 요청을 받게 되면 
+우선적으로 요청에 쿠키정보가 있는지 부터 확인하고 쿠키의 정보를 확인했다면, 해당 요청은 로드 밸런서에 의해 해당 쿠키가 생성되어 있는
 인스턴스로 보내지게 됩니다. 만약 존재하지 않는 쿠키라면 로드 밸런서의 알고리즘에 의해 선택된 다른 인스턴스에 쿠키가 생성되어 
 다음에 똑같은 요청이 오면 같은 경로로 맵핑시켜 줄 수 있도록 합니다. 
 
@@ -72,11 +72,11 @@ last_modified_at: 2020-10-07
 
 ### 하나의 서버로 요청이 몰릴 수 있다!
 
-**Sticky Session** 은 요청받은 쿠키정보를 통해 특정 서버로 맵핑을 한다고 언급했습니다. 이렇게 된다면 `서버1`로 맵핑 된 요청들이 
-갑자기 많은 요청을 한꺼번에 보내 `서버1` 이 다운되는 상황이 발생할 수도 있습니다. 
+**Sticky Session** 은 요청받은 쿠키정보를 통해 특정 서버로 맵핑을 한다고 언급했습니다. 만약 `서버1`로 맵핑 된 사용자들이 
+다른 사용자들과 비교해서 왕성한 활동으로 갑자기 한꺼번에 요청을 보내게 되면 `서버1` 이 다운되는 상황이 발생할 수도 있습니다. 
 
-이렇게 `서버1` 이 다운되어 버리면 해당 서버에 맵핑 된 요청들은 아무런 동작을 수행할 수 없게 됩니다. 서버의 장애 발생으로
-저장되어 있던 모든 데이터 정보 또한 사라지게 됩니다. 
+이렇게 `서버1` 이 다운되어 버리면 해당 서버에 맵핑 된 사용자들은 우리 서비스를 이용할 수 없게 됩니다. 서버의 장애 발생으로
+세션에 저장되어 있던 모든 데이터 정보 또한 사라지게 됩니다. 
 
 <br>
 <br>
@@ -153,71 +153,18 @@ last_modified_at: 2020-10-07
 **하지만** `Primary` 노드가 다운이 되어 버리고 로드 밸런서에 의해 선정된 다른 노드에 세션 정보가 없다고 가정을 해봅시다.
 해당 노드는 데이터를 불러오기 위해 다른 서버에게 세션 데이터가 있는지 물어보고 데이터가 존재하는 서버에게 응답을 받습니다. 이 후 모든 데이터를 복사하고 해당 노드는 `Primary` 로써 수행을 하게 됩니다. 
 
-만약 대용량 트래픽에 상황에서 수 많은 서버를 사용하게 되면 빈번하게 복사가 일어나게 되고 결국은 **성능의 저하**로 이어질 수 있습니다. 
+만약 대용량 트래픽의 상황에서 수 많은 서버를 사용하게 되면 빈번하게 복사가 일어나게 되고 결국은 **성능의 저하**로 이어질 수 있습니다. 
 
 <br>
 
-> Session Clustering의 문제점을 생각해보며, 이러한 단점을 개선시켜 줄 수 있는 in-memory Database 사용 방법은 어떨까요?
-
-
-<br>
-<br>
-<br>
-
-## in-memory Database
-
-인 메모리 데이터베이스란 디스크나 SSD에 저장되는 데이터베이스와는 다르게 **"메모리"** 데이터 저장 목적으로 사용되는 데이터베이스를 말합니다.
-보통 디스크에 저장이 되면 읽고 쓰기가 느리기 때문에 시간이 걸리게 되는데 이러한 응답 시간을 줄이고자 설계된 것이 인 메모리 데이터베이스 
-입니다. 
-
-하지만 메모리에 저장되기 때문에 서버가 다운되거나 동작 과정 중에 데이터가 유실될 수 있는 가능성이 큽니다. 그래서 인 메모리 데이터베이스는
-이러한 단점을 커버하기 위해서 동작 중에 로그나 스냅샷(snapshots)를 이용하여 디스크에 데이터를 저장합니다. 
-
-**인 메모리 데이터베이스** 의 사용이 적합한 경우는 microsecond 단위의 응답시간을 요구하는 애플리케이션이나 실시간 분석, 세션 저장, 게임 순위 선정 등 트래픽이 비교적 많이 몰리는 상황에 적절하다고 합니다. 
-
-<br>
-<br>
-<br>
-
-### in-memory Database의 종류
-
-![db종류](https://user-images.githubusercontent.com/58355531/95645677-6ce64a00-0afc-11eb-99a6-32dda4260bdb.PNG){: .align-center}
-  > 출처: 위키피디아 List of in-memory Database <https://en.wikipedia.org/wiki/List_of_in-memory_databases>
-
-
-위키피디아에 의하면 in-memory Database는 이렇게나 많은 종류가 존재한다고 합니다. 조금 더 검색을 해본 결과, 저는 **Redis** 와 **Memcached** 를 고려해보기로 하는데 그 이유는 다음과 같습니다. 
-
-1. 무료 오픈소스 데이터베이스 이기 때문에 라이센스 비용이 대폭 절약된다.
-2. sub-milisecond 단위의 높은 응답 속도를 보여주기 때문에 대용량 트래픽을 고려하는 우리 프로젝트에 적절하다.
-3. **AWS** 라는 거대 클라우드 서비스에서 지원한다. 
-3. Key-Value 형태로 저장되기 때문에 같은 Key-Value 로 저장되는 세션 데이터를 다루는데 적합하다.
-
-<br>
-
-> 이러한 공통점을 가진 **Redis**와 **Memcached** 중에 어떤 것을 사용하는데 더 좋을지 차이점을 분석해보았습니다.
-
-<br>
-<br>
-<br>
-
-### Redis VS Memcached
-
-인 메모리 데이터베이스 이면서, 세션을 저장하는데 적합한 key-value 형태로 관리되고 속도도 빠른 이 두 데이터베이스의 차이점은 무엇일까요?
-
-
-
-
-<br>
-
-
+> 이렇게 불필요하게 복제가 많이 발생한다면, 결국은 서버 확장의 한계에 도달하게 되고 Scale-out의 무한대로 서버를 늘릴 수 있는 장점을 활용하지 못하게 됩니다. Session-Clustering 처럼 독립된 세션을 하나로 묶어 관리할 수 있으면서 불필요한 복사가 일어나지 않는 **in-memory Database** 는 어떤 장점과 단점을 가지고 있을지 다음 포스팅에서 자세히 소개하도록 하겠습니다! 
 
 
 <br>
 <br>
 <br>
 
-
-#### Referenced by 
+### Referenced by 
 
 - What is a Classic Load Balancer?  
   <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html>
@@ -233,12 +180,6 @@ last_modified_at: 2020-10-07
   
 - About Tomcat BackupManager   
   <https://tkstone.blog/2018/09/19/about-tomcat-backupmanager/>
-  
-- What is an In-Memory Database?
-  <https://aws.amazon.com/ko/nosql/in-memory>
-  
-- Comparing Redis and Memcached
-  <https://aws.amazon.com/ko/nosql/in-memory>
   
 <br>
 <br>
