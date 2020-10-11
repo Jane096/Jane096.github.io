@@ -183,6 +183,14 @@ last_modified_at: 2020-10-07
   
 <br>
 <br>
+
+### Project Github URL
+
+[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
+
+  
+<br>
+<br>
 <br>
 <br>
 <br>
