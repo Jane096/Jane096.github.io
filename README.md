@@ -21,9 +21,14 @@
 
 <br>
 
-#### Sticky Session, Session-Clustering, in-memory Database 비교분석
+#### Sticky Session, Session-Clustering 비교분석
 
 <https://jane096.github.io/project/how-to-solve-server-overload-p2/>
+
+<br>
+
+#### In-memory Datase 란?
+<https://jane096.github.io/project/how-to-solve-server-overload-p3/>
 
 <br>
 <br>
