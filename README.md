@@ -27,7 +27,7 @@
 
 <br>
 
-#### In-memory Datase 란?
+#### In-memory Database 란?
 <https://jane096.github.io/project/how-to-solve-server-overload-p3/>
 
 <br>
