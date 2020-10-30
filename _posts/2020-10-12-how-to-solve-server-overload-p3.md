@@ -29,7 +29,7 @@ last_modified_at: 2020-10-12
 
 ## In-memory Database 란?
 
-![inmemory](https://user-images.githubusercontent.com/58355531/95860457-0599f580-0d9b-11eb-8e92-01680b2d4481.PNG)
+![인메모리이미지](https://user-images.githubusercontent.com/58355531/97765291-dafabb80-1b54-11eb-8869-4de698a061f8.PNG){: .align-center}
 
 <br>
 
@@ -78,7 +78,7 @@ last_modified_at: 2020-10-12
 
 Memcached는 멀티쓰레드를 지원하지만 Redis는 싱글스레드를 지원합니다. Memcached에서 각각의 쓰레드마다 **concurrent connection** 을 관리하기하고 있고 **libevent** 라는 비동기 이벤트 알림 라이브러리를 사용하여 비교적 손쉽게 scaling을 가능하게 하기 때문에 각각의 쓰레드는 많은 클라이언트를 관리할 수 있습니다. 
 
-Memcached에서는 기본적으로 4개의 쓰레드를 기본으로 할당을 해주며 너무 많은 쓰레드(예를 들어 80개 이상)를 사용할 경우 쓰레드를 적게 쓰는 것 보다 오히려 성능은 크게 저하될 수 있으니 주의가 필요하다고 합니다. Memcached를 사용할 경우, 쓰레드의 갯수를 어떻게 가져갈 것인지에 대한 고민이 많이 필요해 보입니다. 
+Memcached에서는 기본적으로 4개의 쓰레드를 기본으로 할당을 해주며 너무 많은 쓰레드(예를 들어 80개 이상)를 사용할 경우 쓰레드를 적게 쓰는 것 보다 오히려 성능은 크게 저하될 수 있으니 주의가 필요하다고 합니다. Memcached를 사용할 경우, 성능 향상 목적으로 쓰레드를 계속 늘려도 오히려 성능이 크게 저하 될 수 있기 때문에 많은 고민이 필요해 보입니다. 
 
 Redis는 싱글스레드를 지원하며, 싱글스레드를 지원함으로써 많은 사용자들이 **"그럼 병목현상을 일으키는 것 아닌가?""** 하는 의문이 [Common FAQ](https://redis.io/topics/faq#redis-is-single-threaded-how-can-i-exploit-multiple-cpu--cores) 질문 중 하나로 올라와있습니다. 공식문서의 답은 병목현상 해결 목적으로 CPU를 멀티 코어로 바꿔도 Redis에게 크게 영향이 미치지 않고 오히려 메모리나 네트워크에 의해 영향을 더 많이 받는다고 합니다. 그리고 **파이프라인(Piplining)** 이 구축된 Redis는 Linux 위에서 1초에 1백만 건 이상을 다룰 수 있기에 애플리케이션의 속도가 O(N), O(log N) 될 때 CPU를 크게 잡아먹지 않는다고 합니다. 
 
