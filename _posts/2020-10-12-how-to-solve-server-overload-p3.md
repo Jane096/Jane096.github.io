@@ -76,7 +76,7 @@ last_modified_at: 2020-10-12
 
 ### Multi-Thread VS Single Thread
 
-Memcached는 멀티쓰레드를 지원하지만 Redis는 싱글스레드를 지원합니다. Memcached에서 각각의 쓰레드마다 **concurrent connection** 을 관리하기하고 있고 **libevent** 라는 비동기 이벤트 알림 라이브러리를 사용하여 비교적 손쉽게 scaling을 가능하게 하기 때문에 각각의 쓰레드는 많은 클라이언트를 관리할 수 있습니다. 
+Memcached는 멀티쓰레드를 지원하지만 Redis는 싱글스레드를 지원합니다. Memcached는 쓰레드를 이용하여 CPU를 통해 Scaling을 진행하며 각각의 쓰레드마다 **concurrent connection(동시에 TCP 커넥션이 가능한 수)** 을 관리하고 있습니다. 또한, **[libevent](https://en.wikipedia.org/wiki/Libevent)** 라는 비동기 이벤트 알림 라이브러리를 사용하여 비교적 손쉽게 scaling을 가능하게 하기 때문에 각각의 쓰레드는 많은 클라이언트를 관리할 수 있습니다. 
 
 Memcached에서는 기본적으로 4개의 쓰레드를 기본으로 할당을 해주며 너무 많은 쓰레드(예를 들어 80개 이상)를 사용할 경우 쓰레드를 적게 쓰는 것 보다 오히려 성능은 크게 저하될 수 있으니 주의가 필요하다고 합니다. Memcached를 사용할 경우, 성능 향상 목적으로 쓰레드를 계속 늘려도 오히려 성능이 크게 저하 될 수 있기 때문에 많은 고민이 필요해 보입니다. 
 
@@ -173,6 +173,9 @@ Redis 공식문서에 의하면 Memcached는 String만을 지원하기 때문에
   
 - Mitigating Failures    
   <https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/FaultTolerance.html>
+  
+- Memcached Github WIKI         
+  <https://github.com/memcached/memcached/wiki/ConfiguringServer#threading>
   
 <br>
 <br>
