@@ -169,7 +169,7 @@ last_modified_at: 2020-10-07
 
 <br>
 
-![깃허브이미지](https://user-images.githubusercontent.com/58355531/99895752-2d9b4380-2ccd-11eb-84ec-19384115cccb.png){: width="130" height="130"}
+![깃허브이미지](https://user-images.githubusercontent.com/58355531/99895752-2d9b4380-2ccd-11eb-84ec-19384115cccb.png){: width="160" height="160"}
 
 [FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
 
