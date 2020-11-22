@@ -115,7 +115,20 @@ Scale-out 을 사용할 시 데이터의 불일치를 어떻게 해결할지 필
 <br>
 <br>
 
-### Referenced by
+
+## Project Github URL
+
+<br>
+
+![깃허브이미지](https://user-images.githubusercontent.com/58355531/99895752-2d9b4380-2ccd-11eb-84ec-19384115cccb.png){: width="100" height="100"}
+
+[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
+
+<br>
+<br>
+<br>
+
+## Referenced by
 
 <https://zdnet.co.kr/view/?no=00000039151294>
 
@@ -124,13 +137,6 @@ Scale-out 을 사용할 시 데이터의 불일치를 어떻게 해결할지 필
 <https://cloudian.com/blog/scale-up-vs-scale-out-storage/>
 
 <https://cloud.google.com/solutions/elastically-scaling-your-mysql-environment>
-
-<br>
-<br>
-
-### Project Github URL
-
-[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
 
 <br>
 <br>
