@@ -120,7 +120,7 @@ Scale-out 을 사용할 시 데이터의 불일치를 어떻게 해결할지 필
 
 <br>
 
-![깃허브이미지](https://user-images.githubusercontent.com/58355531/99895752-2d9b4380-2ccd-11eb-84ec-19384115cccb.png){: width="130" height="130"}
+![오구리이미지](https://user-images.githubusercontent.com/58355531/99896015-085c0480-2cd0-11eb-998d-8b8faeb43e17.gif)
 
 [FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
 
