@@ -164,7 +164,20 @@ last_modified_at: 2020-10-07
 <br>
 <br>
 
-### Referenced by 
+
+## Project Github URL
+
+<br>
+
+![깃허브이미지](https://user-images.githubusercontent.com/58355531/99895752-2d9b4380-2ccd-11eb-84ec-19384115cccb.png){: width="130" height="130"}
+
+[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
+
+<br>
+<br>
+<br>
+
+## Referenced by 
 
 - What is a Classic Load Balancer?  
   <https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html>
@@ -180,15 +193,7 @@ last_modified_at: 2020-10-07
   
 - About Tomcat BackupManager   
   <https://tkstone.blog/2018/09/19/about-tomcat-backupmanager/>
-  
-<br>
-<br>
-
-### Project Github URL
-
-[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
-
-  
+    
 <br>
 <br>
 <br>
