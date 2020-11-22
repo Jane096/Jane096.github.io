@@ -117,7 +117,7 @@ Redis는 `master` 라는 인스턴스에 모든 데이터를 저장하고 `slave
 
 **AWS**의 공식문서에도 Redis는 대용량 트래픽을 위해 설계되었고, Redis의 대한 장점을 Memcached 보다 자세히 서술해두었습니다. 우리 프로젝트는 계속 대용량 트래픽에 대해 고민해왔고 데이터의 일관성을 위해 완벽하게 동작하지 않는다는 것을 감안해도 더 좋은 선택이라고 생각했습니다.
 
-이 선택을 내리는데 결정적이었던 것은 **Spring** 은 Redis에 대해서만 지원한다는 점이었습니다. Spring 공식문서에도 왜 써야하는지에 대해 자세히 기술되어 있을 정도로 **스프링 부트**로 개발 중인 우리 프로젝트에 제격이라고 판단하였습니다. 
+이 선택을 내리는데 결정적이었던 것은 **Spring** 도 위와 같은 장점을 바탕으로 Redis를 사용할 때 편하게 개발할 수 있도록 API를 제공하고 있다는 점이었습니다. 현재 **스프링 부트**로 개발 중인 우리 프로젝트에 **Redis** 가 제격이라고 판단하였습니다. 
 
 > Redis를 선택함으로써 서버 분산 처리 환경에서 세션을 효율적으로 관리할 수 있게 되었습니다! 3편으로 나뉜 긴 글을 읽어주셔서 감사합니다~!
 
@@ -157,7 +157,18 @@ Redis 공식문서에 의하면 Memcached는 String만을 지원하기 때문에
 <br>
 <br>
 
-### Referenced by
+
+## Project Github URL
+
+![오구리이미지](https://user-images.githubusercontent.com/58355531/99896015-085c0480-2cd0-11eb-998d-8b8faeb43e17.gif)
+
+[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
+
+<br>
+<br>
+<br>
+
+## Referenced by
 
 - What is an In-Memory Database?    
   <https://aws.amazon.com/ko/nosql/in-memory>
@@ -176,12 +187,7 @@ Redis 공식문서에 의하면 Memcached는 String만을 지원하기 때문에
   
 - Memcached Github WIKI         
   <https://github.com/memcached/memcached/wiki/ConfiguringServer#threading>
-  
-<br>
-<br>
-
-### Project Github URL
-[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
+ 
 
 <br>
 <br>
