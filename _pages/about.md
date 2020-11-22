@@ -8,27 +8,20 @@ toc: true
 
 <br>
 
-Back-End 개발자가 되기 위해 조금씩 나아가고 있는 주니어 개발자 입니다 :)   
-평소 관심분야, 업무를 보며 마주치는 이슈에 대해 정리하고 복습하는 공간입니다   
+## About Me
+
+대학에서 미술과 외식경영을 공부했고 지인의 적극 추천으로 알게 된 코딩에 점차 흥미를 붙이게 되어 개발자 세계에 입문하게 되었습니다.   
+
+현재는 작은 IT 회사에서 근무하고 있고 서버 개발자의 꿈을 향해 달려가고 있는 주니어 개발자 입니다 :)    
 
 <br>
-<br>
-<br>
-<br>
 
-## 관심 분야?
-<br>
+사이드 프로젝트를 진행하며 발생했던 **기술적인 이슈를 해결한 과정**이나 **깊이 있는 지식** 을 공유하고 싶어 개설한 개인 테크 블로그 입니다.
+모든 포스팅은 **공식문서** 를 적극적으로 활용하여 작성하였습니다!    
 
-![1번이미지]({{ site.url }}{{ site.baseurl }}/assets/interested/1.PNG){: .align-center}
+재미있게 읽어주셨으면 좋겠습니다~     
+제 Github가 궁금하신 분들은 왼쪽 프로필 하단에 **Github** 아이콘을 클릭해주세요!
 
-![2번이미지]({{ site.url }}{{ site.baseurl }}/assets/interested/2.PNG){: .align-center}
-
-![3번이미지]({{ site.url }}{{ site.baseurl }}/assets/interested/3.PNG){: .align-center}
-
-![4번이미지]({{ site.url }}{{ site.baseurl }}/assets/interested/4.PNG){: .align-center}
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
