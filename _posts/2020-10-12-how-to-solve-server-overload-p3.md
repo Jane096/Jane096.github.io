@@ -188,6 +188,11 @@ Redis 공식문서에 의하면 Memcached는 String만을 지원하기 때문에
 - Memcached Github WIKI         
   <https://github.com/memcached/memcached/wiki/ConfiguringServer#threading>
  
+<br>
+<br>
+<br>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fjane096.github.io%2Fproject%2Fhow-to-solve-server-overload-p3%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 <br>
 <br>
