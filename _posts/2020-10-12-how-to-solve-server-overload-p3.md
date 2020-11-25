@@ -8,7 +8,7 @@ categories:
 toc: true    
 toc_sticky: true    
 toc_label: contents    
-description: 서버 부하를 해결하기 위해 고려한 점은 자세하게 정리하기 위해 생성한 포스팅 - 인메모리 데이터베이스
+description: 서버 분산처리 환경에서 인메모리 데이터베이스를 사용했을 때의 트레이드 오프를 정리한 포스팅
 last_modified_at: 2020-10-12 
 ---
 
