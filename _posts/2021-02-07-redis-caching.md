@@ -31,7 +31,7 @@ last_modified_at: 2021-02-07
 
 ## 캐싱을 적용해보게 된 이유
 
-**"이벤트 목록 조회"** 는 위에서 언급했던 대로 **가장 자주 사용히고 가장 오래 걸릴 수 있는 기능** 입니다. 
+**"이벤트 목록 조회"** 는 위에서 언급했던 대로 **가장 자주 사용고 가장 오래 걸릴 수 있는 기능** 입니다. 
 또한 업데이트가 아주 빈번하게 일어나는 것이 아니라서 반복적으로 동일한 결과를 출력하는 경우가 많습니다. 
 
 <br>
@@ -88,7 +88,7 @@ Local cache 를 이용하게 된다면 서버로 데이터 통신을 위한 대�
 
 ### 최종선택은 Global Cache로!
 
-지난 포스팅을 보셨다시피, 현재 저희 FESTA 프로젝트에서는 급증하는 트래픽에 대응하고자 다중 서버 환경을 구축하였습니다. 
+[지난 포스팅](https://jane096.github.io/project/how-to-solve-server-overload-p3/)을 보셨다시피, 현재 저희 [FESTA 프로젝트](https://github.com/f-lab-edu/event-recommender-festa)에서는 급증하는 트래픽에 대응하고자 다중 서버 환경을 구축하였습니다. 
 캐시 데이터 또한 이러한 다중 서버 환경에서 데이터의 동기화가 필요하기 때문에 Local cache가 아닌 **Global cache** 를 
 최종적으로 선택하게 되었습니다. 
 
@@ -108,7 +108,7 @@ Local cache 를 이용하게 된다면 서버로 데이터 통신을 위한 대�
 - 캐싱 개요 Amazon Official Document      
   <https://aws.amazon.com/ko/caching/>      
   
-- 캐싱 전략 Amazodn Official Document     
+- 캐싱 전략 Amazon Official Document     
   <https://docs.aws.amazon.com/ko_kr/AmazonElastiCache/latest/red-ug/Strategies.html>     
 
 - Local Caching: Microsoft Official Document      
