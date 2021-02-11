@@ -56,7 +56,7 @@ Local cache 와 Global cache로 나누어 볼 수 있습니다.
 
 <br>
 
-![image](https://user-images.githubusercontent.com/58355531/107146758-7dfd7580-698d-11eb-9ff0-b1826c979b06.png)
+![image](https://user-images.githubusercontent.com/58355531/107146758-7dfd7580-698d-11eb-9ff0-b1826c979b06.png){: .align-center}
 
 <br>
 
@@ -74,7 +74,7 @@ Local cache 를 이용하게 된다면 서버로 데이터 통신을 위한 대�
 
 <br>
 
-![image](https://user-images.githubusercontent.com/58355531/107146827-dfbddf80-698d-11eb-8d19-fccd6fb39056.png)
+![image](https://user-images.githubusercontent.com/58355531/107146827-dfbddf80-698d-11eb-8d19-fccd6fb39056.png){: .align-center}
 
 <br>
 
@@ -98,6 +98,42 @@ Local cache 를 이용하게 된다면 서버로 데이터 통신을 위한 대�
 
 ## 캐시 히트율(Cache Hit ratio)
 
+**캐시 히트율** 이란, 캐시된 데이터를 요청할 때 해당 키 값이 메모리에 존재하여 얼마만큼의 비율로 잘 찾았는지에 대한 여부를 말합니다. 캐시 데이터를 잘 찾았다면 
+`Cache hit` 이라고 하며 반대로 캐시가 존재하지 않아 찾지 못했을 경우 `Cache Miss` 라고 합니다. 
+
+**캐시 히트율** 을 계산할 때에는 `cmd` 창에서 `redis-cli` 로  Redis에 접속하여 `info stats` 명령어를 입력하면 아래와 같은 사진처럼 정보가 뜨게 됩니다.
+
+<br>
+
+![image](https://user-images.githubusercontent.com/58355531/107664713-0eaabd00-6cd0-11eb-8107-ad1886440ef7.png){: .align-center}
+
+<br>
+
+이 때, `Keyspace-hits` 가 `Cache-hit` 을 의미하며 `Keyspace-misses` 가 `Cache Miss` 를 의미하여 캐시 히트율을 구하는 산술식은
+
+`캐시 히트율 = Keyspace-hits / (Keyspace-hits + Keyspace-misses)`{: .align-center}      
+
+이며, 해당 공식으로 캐시 히트율을 구할 수 있습니다.
+
+<br>
+
+만약, 캐시 히트율이 현저히 낮다면 그 의미는 **캐시된 데이터를 제대로 찾지 못하고 있다** 는 뜻이며 그만큼 디스크에서 데이터를 읽어오는 비율이 높다는 
+것을 의미합니다. 디스크에서 데이터를 읽어올 경우, I/O가 많이 발생하기 때문에 그만큼 성능에 큰 영향을 끼칠 수 밖에 없습니다. 
+
+반대로, 캐시 히트율이 높다는 것은 데이터베이스에서 읽어오는 비율보다 메모리에 캐시된 데이터를 읽어오는 비율이 높다는 의미이기 때문에 효율적으로 
+캐시를 사용하고 있다는 반증이 됩니다. 
+
+<br>
+<br>
+<br>
+
+### 캐시 evict 와 entryTtl 
+
+위에서 언급했던 바와 같이 캐시 히트율이 높다면 캐시 데이터를 효율적으로 사용하고 있다는 증거가 된다고 했습니다. 캐시 히트율을 높일려면 
+항상 캐시 데이터를 메모리에 저장을 해두면 될 것 같지만, 그렇게 된다면 메모리에 리소스를 계속해서 차지하기 때문에 그것 또한 문제가 될 수 있습니다. 
+
+캐시된 데이터는 적절한 때에 `Cache 지속시간(entryTtl)` 을 설정하여 만료 되도록 하고, `Cache evict`를 하여 메모리 리소스가 차지 않도록 적절한 조절이 필요합니다.
+
 
 
 
@@ -113,9 +149,19 @@ Local cache 를 이용하게 된다면 서버로 데이터 통신을 위한 대�
 
 - Local Caching: Microsoft Official Document      
   <https://docs.microsoft.com/en-us/windows/win32/fileio/local-caching>     
-
-
-
+  
+- How to Monitor Redis Performance metrics      
+  <https://www.datadoghq.com/blog/how-to-monitor-redis-performance-metrics/>       
+  
+- Performing an LRU simulation     
+  <https://redis.io/topics/rediscli#performing-an-lru-simulation>
+  
+- Using Redis as an LRU cache      
+  <https://redis.io/topics/lru-cache>
+  
+  
+  
+  
 
 
 
