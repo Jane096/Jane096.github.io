@@ -330,7 +330,7 @@ public List<EventDTO> getListOfEvents(PageInfo pageInfo, int categoryCode) {
 
 <br>
 
-![image](https://user-images.githubusercontent.com/58355531/107779117-45dca500-6d88-11eb-86f4-0124e10adaae.png){: .align-center}
+![URL](https://user-images.githubusercontent.com/58355531/107786134-cef7da00-6d90-11eb-8b91-a99a0dca80be.PNG){: .align-center}
 
 <br>
 
