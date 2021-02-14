@@ -111,7 +111,7 @@ Local cache 를 이용하게 된다면 서버로 데이터 통신을 위한 대�
 
 이 때, `Keyspace-hits` 가 `Cache-hit` 을 의미하며 `Keyspace-misses` 가 `Cache Miss` 를 의미하여 캐시 히트율을 구하는 산술식은
 
-`캐시 히트율 = Keyspace-hits / (Keyspace-hits + Keyspace-misses)`{: .text-center }      
+> 캐시 히트율 = Keyspace-hits / (Keyspace-hits + Keyspace-misses)
 
 이며, 해당 공식으로 캐시 히트율을 구할 수 있습니다.
 
