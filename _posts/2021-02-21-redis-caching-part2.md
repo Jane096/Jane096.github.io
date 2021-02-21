@@ -184,7 +184,7 @@ refresh를 위해서 **이벤트 등록** 기능에 캐시 데이터를 삭제�
 
 ### 정말 캐싱이 되는지 확인해보자
 
-저는 `Talend API Tester` 라는 툴을 chrome 에서 다운로드 하여 사용했습니다.
+저는 [Talend API Tester](https://chrome.google.com/webstore/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm) 라는 chrome 확장 프로그램을 다운로드 하여 사용했습니다. 해당 툴은 REST API 나 HTTP를 보다 손쉽게 테스트 할 수 있도록 제공하는 기능으로, 프로젝트에 설정한 url 요청을 보내면 패턴에 대한 유효성을 체크함과 동시에 그에 맞는 응답을 제공해줍니다. 무료 버전으로 제공되고 있고 다운로드만 하면 바로 사용할 수 있기 때문에 REST API 테스트 할 때 추천드리고 싶은 툴 입니다.
 
 <br>
 
