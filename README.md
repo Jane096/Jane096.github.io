@@ -41,7 +41,7 @@
 <br>
 
 #### Redis Cache 기능을 활용한 성능개선 이야기 part 2?
-
+<https://jane096.github.io/project/redis-caching-part2/>
 
 <br>
 <br>
