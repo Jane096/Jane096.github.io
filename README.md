@@ -45,4 +45,12 @@
 
 <br>
 <br>
+
+## Jenkins CI 포스팅
+
+#### Jenkins를 이용해 지속적인 통합(CI)을 적용해보자 part 1
+<https://jane096.github.io/project/why-jenkins-ci/>
+
+<br>
+<br>
 <br>
