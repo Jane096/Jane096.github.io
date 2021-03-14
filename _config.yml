@@ -87,7 +87,7 @@ social:
 analytics:
   provider: "google"
   google:
-    tracking_id: "UA-1234567-8"
+    tracking_id: "192095560"
     anonymize_ip: false # default
 
 # Site Author
