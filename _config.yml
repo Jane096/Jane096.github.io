@@ -87,7 +87,7 @@ social:
 analytics:
   provider: "google"
   google:
-    tracking_id: "G-5GS6MBWCJJ"
+    tracking_id: G-5SEF6ECMCP
     anonymize_ip: false # default
 
 # Site Author
