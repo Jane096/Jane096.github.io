@@ -1,5 +1,5 @@
 ---
-title: "MySQL Master/Slave Replication으로 이중화를 구성해 본 이야기"    
+title: "부하 분산을 위해 MySQL을 Master/Slave로 이중화를 구성해 본 이야기"    
 layout: single    
 read_time: true    
 comments: true   
@@ -46,7 +46,7 @@ Replication 을 구성하게 되면 항상 복제를 진행하는게 아닌, **�
 
 ### 장애 극복
 
-만약 **Master** DB가 모종의 이유로 장애가 발생해 사용이 중지 되었다면 바로 **Slave**를 Master로 지정해 데이터의 대한 복구를 
+만약 Master DB가 모종의 이유로 장애가 발생해 사용이 중지 되었다면 바로 Slave를 Master로 승격해 데이터의 대한 복구를 
 빠르게 진행할 수 있습니다. **그러나** MySQL Replication은 **비동기** 방식으로 진행하기 때문에 Slave로 복사 되는 시간을 온전히
 기다려 주지 않습니다. 때문에 데이터가 완벽하게 복사가 되지 않을 수도 있습니다.
 
