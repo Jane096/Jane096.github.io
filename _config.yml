@@ -85,11 +85,10 @@ social:
 
 # Analytics
 analytics:
-  provider               : false # false (default), "google", "google-universal", "custom"
+  provider: "google"
   google:
-    tracking_id          :
-    anonymize_ip         : # true, false (default)
-
+    tracking_id: "UA-1234567-8"
+    anonymize_ip: false # default
 
 # Site Author
 author:
