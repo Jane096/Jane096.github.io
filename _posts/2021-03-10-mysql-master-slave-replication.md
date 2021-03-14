@@ -8,8 +8,8 @@ categories:
 toc: true    
 toc_sticky: true    
 toc_label: contents    
-description: 젠킨스 CI를 통한 파이프라인 구성 전 이론을 정리한 포스팅
-last_modified_at: 2021-03-02     
+description: mysql을 master, slave로 분리하여 읽기와 쓰기의 기능을 분리해 부하를 분산시켜 본 이야기
+last_modified_at: 2021-03-10     
 ---
 
 <br>
@@ -105,7 +105,7 @@ Replication 을 구성하게 되면 항상 복제를 진행하는게 아닌, **�
 mysql> create user '아이디'@'%' identified by '비밀번호'; 
 ```
 
-그 다음, 마스터 서버 `festa` 에 접속하여 **MySQL** 에 로그인 한 다음, 새로운 계정을 하나 생성해줍니다.
+그 다음, 슬레이브 서버 `festa` 에 접속하여 **MySQL** 에 로그인 한 다음, 새로운 계정을 하나 생성해줍니다.
 
 <br>
 
@@ -198,7 +198,7 @@ mysql -u root -p festa < festa.sql
 
 ### SHOW MASTER STATUS
 
-이제 기본적인 설정은 끝났습니다. 본격적으로 두 서버를 연결해야 하는데요, 우선 마스터의 DB 정보를 조회해야합니다.
+이제 기본적인 설정은 끝났습니다. 본격적으로 두 서버를 연결해야 하는데요, 우선 마스터의 status 정보를 조회해야합니다.
 헤더 제목과 같이 아래의 명령어를 입력하면 캡처화면과 같은 정보가 뜨게 됩니다.
 
 ```bash
