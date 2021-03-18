@@ -52,5 +52,13 @@
 <https://jane096.github.io/project/why-jenkins-ci/>
 
 <br>
+
+## MySQL 관련 포스팅
+
+#### 부하 분산을 위해 MySQL을 Master/Slave로 이중화를 구성해 본 이야기
+<https://jane096.github.io/project/mysql-master-slave-replication/>
+
+
+<br>
 <br>
 <br>
