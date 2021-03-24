@@ -9,7 +9,7 @@ toc: true
 toc_sticky: true    
 toc_label: contents    
 description: 로그인 확인 중복코드를 AOP로 리팩토링하여 중복코드를 해결한 포스팅
-last_modified_at: 2021-01-10   
+last_modified_at: 2021-03-25   
 ---
 
 <br>
