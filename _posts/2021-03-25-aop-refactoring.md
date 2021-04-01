@@ -304,6 +304,150 @@ public class CheckLoginStatusAop {
 <br>
 <br>
 
+## HandlerMethodArgumentResolver 를 이용한 AOP 적용하기
+
+지금까지는 메서드 별로 적용가능한 AOP에 대해 정리해보았습니다. 제 프로젝트 전체적으로 추가로 적용할 곳이 없나 찾아보던 중 
+또 다른 중복코드가 보여지게 되었는데 바로 **현재 로그인 중인 사용자의 회원코드인 userNo** 를 세션에서 가져오는 부분이었습니다. 
+
+<br>
+
+#### example
+
+```java
+/**
+     * 회원 탈퇴 기능
+     * @Param userNo
+     * @return {@literal ResponseEntity<HttpStatus>}
+     */
+    @CheckLoginStatus(auth = UserLevel.USER)
+    @DeleteMapping("/")
+    public void memberWithdraw(String userId) {
+        long userNo = loginService.getUserNo(userId) //사용자의 아이디명을 통해서 세션에 저장된 userNo를 가져오는 부분
+        memberService.memberWithdraw(userNo);
+    }
+```
+
+<br>
+
+이 부분에 대해서도 여러 메서드 마다 중복으로 나타나게 되었고 **userNo를 가져오는 로직** 또한 9의 관심대상이 아니었습니다.
+이러한 이유로 이전처럼 어노테이션을 이용한 AOP를 파라미터별로 적용할 수 있도록 설계를 변경해보기로 합니다. 
+
+<br>
+
+### HandlerMethodArgumentResolver 란?
+
+Method 별로 특정조건에 맞는 파라미터가 있을 때 원하는 값을 알아서 바인딩 시켜주는 인터페이스를 스프링에서 제공을 해주는데
+그 인터페이스는 바로 [HandlerMethodArgumentResolver](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/method/support/HandlerMethodArgumentResolver.html) 입니다. 
+
+우리는 `Controller` 에 값을 받아오는 부분을 지정할 때 `@RequestBody` 나 `@PathVariable` 을 사용하신 경험이 있을겁니다. 이 때 이 어노테이션 내부에는
+`HandlerMethodArgumentResolver` 인터페이스가 있으며 이를 통해 값을 받아옵니다. 
+
+저는 이 인터페이스를 커스텀하게 지정하여 세션에 저장 된 `userNo` 값을 받아오는 코드를 모듈화 할 예정입니다.
+
+<br>
+<br>
+
+### 어노테이션 인터페이스 작성
+
+어노테이션에 적용하기 위해서는 당연히 어노테이션 인터페이스가 작성이 먼저 되어있어야 합니다. 저는 **현재 로그인 된 userNo** 라는 의미로 
+`@CurrentLoginUserNo` 라고 명칭을 지어주었습니다.
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
+public @interface CurrentLoginUserNo {
+}
+```
+
+<br>
+
+이전과 다른점은 메서드별이 아닌 파라미터별로 지정할 것이기 때문에 `@Target` 은 **PARAMETER** 로 선언해주도록 합니다.
+
+<br>
+
+### Resolver 작성하기
+
+실제로 `@CurrentLoginUserNo` 가 수행해야할 부분을 작성해주도록 합니다. 클래스를 하나 새로 생성하여 그 클래스는 **HandlerMethodArgumentResolver**
+인터페이스를 implements 받도록 합니다. 그렇다면 자동으로 오버라이드 해야할 두개의 메서드가 존재합니다.
+
+```java
+@Component
+@RequiredArgsConstructor
+public class LoginUserNoResolver implements HandlerMethodArgumentResolver {
+
+    private final LoginService loginService;
+
+    @Override
+    public boolean supportsParameter(MethodParameter methodParameter) {
+        return methodParameter.hasParameterAnnotation(CurrentLoginUserNo.class);
+    }
+
+    @Override
+    public Object resolveArgument(@Nullable MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, @Nullable NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
+        return loginService.getUserNo();
+    }
+}
+```
+
+<br>
+
+첫번째 `supportsParameter` 에는 특정 어노테이션이 선언 된 부분에만 동작을 할 수 있도록 설정할 수 있습니다. 동작이 가능하다면 **True** 를 반환하게 됩니다.    
+
+두번째 `resolveArgument` 는 실제 어노테이션이 선언 된 부분이 수행해야할 기능을 설정할 수 있습니다. 저희는 세션의 저장된 사용자 회원번호를 가져와야 하기 때문에
+`loginService.getUserNo()` 동작을 이 곳 하나에만 지정하도록 합니다. 
+
+<br>
+<br>
+
+### WebConfig로 스프링에 등록하기
+
+이제 커스텀하게 만든 `LoginUserNoResolver` 를 스프링에 등록하여 스프링에서 관리될 수 있도록 합니다. 이 때 `WebConfig` 는 `WebMvcConfigurer` 를 implements 받도록 합니다.
+그래야 개발자가 새로 커스텀하게 만들어 등록한 `loginUserNoResolver` 를 이용할 수 있게 됩니다. 
+
+```java
+@Configuration
+@RequiredArgsConstructor
+public class WebConfig implements WebMvcConfigurer {
+
+    private final LoginUserNoResolver loginUserNoResolver;
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(loginUserNoResolver);
+    }
+}
+```
+
+<br>
+<br>
+
+## After refactoring
+
+```java
+/**
+     * 회원 탈퇴 기능
+     * @Param userNo
+     * @return {@literal ResponseEntity<HttpStatus>}
+     */
+    @CheckLoginStatus(auth = UserLevel.USER)
+    @DeleteMapping("/")
+    public void memberWithdraw(@CurrentLoginUserNo long userNo) {
+        memberService.memberWithdraw(userNo);
+    }
+    
+```
+
+<br>
+
+이로써 커스텀하게 설정한 `@CurrentLoginUserNo` 를 파라미터별로 설정하여 핵심로직의 관심대상을 분리하면서 어플리케이션 전반적으로 중복되어 나타나는 코드를 
+모듈화 할 수 있었습니다! 
+
+현재 올려진 예시 이외의 소스코드는 아래 첨부된 깃허브 레파지토리를 통해 참고 부탁드립니다 :)
+
+<br>
+<br>
+
+
 ## Project Github URL
 
 <br>
