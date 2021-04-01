@@ -33,6 +33,14 @@
 <br>
 <br>
 
+## 중복코드 리팩토링
+
+#### AOP를 활용한 중복코드 리팩토링
+<https://jane096.github.io/project/aop-refactoring/>
+
+<br>
+<br>
+
 ## Redis Caching 포스팅
 
 #### Redis Cache 기능을 활용한 성능개선 이야기 part 1
