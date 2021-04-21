@@ -66,6 +66,8 @@
 #### 부하 분산을 위해 MySQL을 Master/Slave로 이중화를 구성해 본 이야기
 <https://jane096.github.io/project/mysql-master-slave-replication/>
 
+#### 실행계획을 분석해서 SQL 성능튜닝을 해보자(feat.MySQL)
+<https://jane096.github.io/project/refactoring-sql/>
 
 <br>
 <br>
