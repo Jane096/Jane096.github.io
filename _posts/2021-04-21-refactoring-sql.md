@@ -31,8 +31,8 @@ last_modified_at: 2021-04-21
 ## 왜 이벤트 목록조회를 제일 먼저 튜닝했나요?
 
 다른 쿼리문도 많은데 **이벤트 목록조회** 를 선택한 이유는, 우선 **내 주변지역의 이벤트와 행사** 를 추천하는 프로젝트이고 저는 이 서비스가
-수 많은 유저들이 이용한다는 가정하에 진행하고 있습니다. 이벤트 목록 데이터는 수십 억 건이 될 수도 있고, 그만큼 수 많은 유저들이 가장 많이 이용하는 
-기능이기 때문에 성능에 대한 이슈가 빈번히 발생할 여지가 많았습니다.
+수 많은 유저들이 이용한다는 가정하에 진행하고 있습니다. 목록조회 쿼리는 `members` 라는 사용자 테이블을 조인하게 되는데, 서비스가 점점 커진다면 유저는
+끝없이 늘어날 것이고 그만큼 가장 많이 이용하는 기능이 바로 **목록조회**  때문에 성능에 대한 이슈가 빈번히 발생할 여지가 많았습니다.
 
 그래서 [이전 포스팅](https://jane096.github.io/project/redis-caching/)에도 작성한 적이 있지만, 캐싱기능을 적용한 것도 이러한 문제 소지가 있었기 때문이죠.
 
@@ -190,8 +190,10 @@ SELECT
 
 <br>
 
+![image](https://user-images.githubusercontent.com/58355531/115982457-31155c80-a5d6-11eb-8abb-fff4c9913eac.png){: .align-center}
+
 `DERIVED` 의 원인이 되는 `FROM` 절 다음 서브쿼리 부분을 없애주어 `SIMPLE` 이 뜨도록 변경했습니다.
-이렇게 하니 `events` 테이블 `E` 가 여전히 테이블 풀스캔을 하고 있었고 나머지는 `eq_ref` 가 뜨게 되었습니다.
+이렇게 하니 `events_address` 테이블 `EA` 가 여전히 테이블 풀스캔과 `Using temporary` , `Using filesort` 를 하고 있었고 나머지는 `eq_ref` 가 뜨게 되었습니다.
 
 <br>
 
@@ -276,6 +278,10 @@ LIMIT 10;
 그래서 인덱스가 걸려있는 `eventNo` 로 변경을 해주었습니다. 이 컬럼은 `auto_increment` 가 걸려있기 때문에 등록된 순서대로 부여가 됩니다. 
 즉 굳이 `registerDate` 기준이 아니더라도 `eventNo` 만으로 최신등록 순 부터 보여줄 수 있을 것이라고 생각해 변경하게 되었습니다.
 
+<br>
+
+![image](https://user-images.githubusercontent.com/58355531/115982660-d11fb580-a5d7-11eb-86b4-2e826e19c82f.png){: .align-center}
+
 그럼에도 `event_address` 테이블은 계속 테이블 풀스캔을 하고 있었는데 `where E.userNo < 5 and E.categoryCode = 1` 명령문이 임시테이블을 생성하게 하여 
 인덱스를 사용하지 못하고 정렬해 뜨는 문제로 보였습니다.
 
@@ -347,7 +353,7 @@ SELECT
 
 ## Project Github URL 
 
-![오구리이미지](https://user-images.githubusercontent.com/58355531/99896015-085c0480-2cd0-11eb-998d-8b8faeb43e17.gif)
+[![오구리이미지](https://user-images.githubusercontent.com/58355531/99896015-085c0480-2cd0-11eb-998d-8b8faeb43e17.gif)](https://github.com/f-lab-edu/event-recommender-festa "이미지를 클릭하면 프로젝트 깃허브를 볼 수 있습니다 :)")
 
 [FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
 
