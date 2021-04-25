@@ -355,7 +355,7 @@ SELECT
 
 [![오구리이미지](https://user-images.githubusercontent.com/58355531/99896015-085c0480-2cd0-11eb-998d-8b8faeb43e17.gif)](https://github.com/f-lab-edu/event-recommender-festa "이미지를 클릭하면 프로젝트 깃허브를 볼 수 있습니다 :)")
 
-[FESTA 프로젝트 Github 보러가기 Click!](https://github.com/f-lab-edu/event-recommender-festa)
+[FESTA 프로젝트 Github 보러가기 Click! (또는 위의 이미지 Click!)](https://github.com/f-lab-edu/event-recommender-festa)
 
 <br>
 <br>
