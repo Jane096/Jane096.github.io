@@ -17,16 +17,14 @@ last_modified_at: 2021-04-28
 
 ## Overview
 
-프로젝트를 서버에 배포작업과 젠킨스 CD 까지 적용이 완료되어 본격적으로 **nGrinder** 의 사용법을 익혀 성능테스트 준비를 
-진행하고 있었습니다. 최근 로그인 기능에 대하여 성능테스트 결과를 얻을 수 있었는데요, 그 과정을 정리하고자
-블로그 글을 쓰게 되었습니다. 
+최근 [프로젝트](https://github.com/f-lab-edu/event-recommender-festa)를 서버에 배포하는 작업과 젠킨스 CD 까지 적용이 완료되어 본격적으로 **nGrinder** 의 사용법을 익혀 성능테스트 준비를 진행하고 있었습니다. 최근 로그인 기능에 대하여 성능테스트 결과를 얻을 수 있었는데요, 그 과정을 정리하고자 블로그 글을 쓰게 되었습니다. 
 
 <br>
 <br>
 
 ## nGrinder 란?
 
-네이버에서 제작한 성능테스트 솔루션으로 오픈소스 입니다. 누구나 [Github 페이지](https://github.com/naver/ngrinder/releases)에서 다운로드 받아 사용할 수 있습니다!
+네이버에서 제작한 성능테스트 솔루션으로 오픈소스 입니다. 누구나 [nGrinder 공식 Github 페이지](https://github.com/naver/ngrinder/releases)에서 다운로드 받아 사용할 수 있습니다!
 스크립트만 만들어 둔다면 불필요한 작업 없이 바로 테스트를 수행해 모니터링까지 가능한 플랫폼입니다.
 
 <br>
@@ -36,7 +34,7 @@ last_modified_at: 2021-04-28
 
 ![image](https://user-images.githubusercontent.com/58355531/116376659-70001800-a84b-11eb-88f7-8afc1b0968e0.png){: .align-center}
 
-**nGrinder** 는 Grinder 라는 내부 엔진을 사용하며 nGrinder 는 이 엔진을 **controlle** 와 **agent**로
+**nGrinder** 는 Grinder 라는 내부 엔진을 사용하며 nGrinder 는 이 엔진을 **controller** 와 **agent**로
 감싸 다수의 테스트를 병렬처리할 수 있도록 합니다. **controller** 와 **agent** 는 nGrinder 의 주요 요소들 인데요, 어떤 역할을 하는지 알아보도록 하겠습니다.
 
 <br>
@@ -166,7 +164,7 @@ class TestRunner {
 
 ```
 
-`create` 버튼을 눌러주면 자동으로 이런 스크립트를 작성해주는데요, 오른쪽 위에 `Validation` 버튼을 눌러 
+`create` 버튼을 눌러주면 자동으로 이런 스크립트를 작성해주는데요, 오른쪽 위에 `Validation` 이라는 파란색 버튼을 눌러 
 스크립트가 오류 없이 돌아가는지를 확인한 후, 파일을 저장해줍니다. 
 
 <br>
@@ -184,7 +182,7 @@ class TestRunner {
 
 ![image](https://user-images.githubusercontent.com/58355531/116384191-94abbe00-a852-11eb-9bcb-e850cdb31ec2.png){: .align-center}
 
-저는 200명의 사용자가 이용했을 경우 이러한 결과를 얻을 수 있었습니다. 의미있는 결과를 위해 테스트는 6분 동안
+저는 200명의 사용자가 이용했을 경우 이러한 결과를 얻을 수 있었습니다. 의미있는 결과를 위해 테스트는 약 6분 동안
 진행하였습니다. 사용자 수가 늘어날 수록 Errors의 수가 점점 늘어나는 현상을 볼 수 있었습니다. 
 
 최고 TPS는 164를 찍었지만 평균적으로는 TPS 64~80(제가 예상한 것보단 낮은 수치였습니다.) 가량을 보여주었고 심하게 요동치는 그래프로 보아 현재 성능면에선 불안정한 것으로 보였습니다. 
@@ -193,11 +191,11 @@ class TestRunner {
 
 ![image](https://user-images.githubusercontent.com/58355531/116382749-33cfb600-a851-11eb-81e5-7455f0c44c72.png){: .align-center}
 
-`htop` 명령어를 이용하면 cpu, memory 사용량을 모니터링할 수 있는데요, 200명 유저일 때 cpu, memory가 98~100%를 찍고 있었습니다. 
+`htop` 을 우분투에 설치하여 이 명령어를 이용하면 cpu, memory 사용량을 모니터링할 수 있는데요, 200명 유저일 때 cpu, memory가 98~100%를 찍고 있었습니다. 
 아무래도 200명 보다 낮거나 서버의 사양이 높아야지 더 많은 유저들이 이용가능할 것 같다는 결론을 내릴 수 있었습니다. 
 
 생각보다 많은 유저들이 사용할 수 있는 상태가 아님을 알 수 있었고 JVM 튜닝, 기타 성능의 저하를
-불러오는 부분(ex.SQL 쿼리튜닝)을 찾아 많은 개선이 필요해 보였습니다. 
+불러오는 부분(ex.SQL 쿼리튜닝)을 찾아 많은 개선이 필요하다는 것을 알 수 있었습니다! 
 
 <br>
 <br>
