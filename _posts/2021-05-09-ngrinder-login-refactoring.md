@@ -38,29 +38,16 @@ last_modified_at: 2021-05-09
 <br>
 
 ```java
-/**
-     * 사용자 로그인 기능
-     * Firebase Token 생성 후 로그인한 회원에게 보내야 할 알림여부를 응답을 보냄
-     * @param memberLogin
-     * @return {@literal List<AlertResponse>}
+   /**
+     * 로그인 후 firebase token 저장 및 알림전송의 비즈니스 로직 처리
+     * @param userNo
+     * @param token
      */
-    @PostMapping("/login")
-    public List<AlertResponse> login(@RequestBody MemberLogin memberLogin) {
-        String userId = memberLogin.getUserId();
-        String password = memberLogin.getPassword();
-
-        memberService.isUserIdExist(userId, password);
-        loginService.setUserNo(memberLogin.getUserNo());
-        
-        //토큰을 생성하는 부분!
-        firebaseTokenManager.makeAccessToken(memberLogin.getUserNo());
-
-        List<AlertResponse> loginResponses = alertService.eventStartNotice(memberLogin.getUserNo(), LocalDate.now());
-        AlertResponse isUserNeedToChangePw = alertService.changePasswordNotice(memberLogin.getUserNo());
-
-        loginResponses.add(isUserNeedToChangePw);
-
-        return loginResponses;
+    @Override
+    public void afterLogin(long userNo, String token) {
+        firebaseTokenManager.makeAccessToken(userNo);
+        alertService.eventStartNotice(userNo, LocalDate.now());
+        alertService.changePasswordNotice(userNo);
     }
 ```
 
@@ -110,29 +97,16 @@ last_modified_at: 2021-05-09
 사용했습니다.
 
 ```java
-/**
-     * 사용자 로그인 기능
-     * Firebase Token 생성 후 로그인한 회원에게 보내야 할 알림여부를 응답을 보냄
-     * @param memberLogin
-     * @return {@literal List<AlertResponse>}
+   /**
+     * 로그인 후 firebase token 저장 및 알림전송의 비즈니스 로직 처리
+     * @param userNo
+     * @param token
      */
-    @PostMapping("/login")
-    public List<AlertResponse> login(@RequestBody MemberLogin memberLogin) {
-        String userNo = String.valueOf(memberLogin.getUserNo());
-        String userId = memberLogin.getUserId();
-        String password = memberLogin.getPassword();
-
-        memberService.isUserIdExist(userId, password);
-        loginService.setUserNo(memberLogin.getUserNo());
-
-        //firebaseTokenManager.makeAccessToken(memberLogin.getUserNo()); 토큰생성 로직삭제
-        firebaseTokenManager.register(userNo, memberLogin.getToken());  //토큰 저장 로직을 이쪽으로 옮기게 됨
-
-        List<AlertResponse> loginResponses = alertService.eventStartNotice(memberLogin.getUserNo(), LocalDate.now());
-        AlertResponse isUserNeedToChangePw = alertService.changePasswordNotice(memberLogin.getUserNo());
-        loginResponses.add(isUserNeedToChangePw);
-        
-        return loginResponses;
+    @Override
+    public void afterLogin(long userNo, String token) {
+        firebaseTokenManager.register(String.valueOf(userNo), token);
+        alertService.eventStartNotice(userNo, LocalDate.now());
+        alertService.changePasswordNotice(userNo);
     }
 
 ```
@@ -159,31 +133,19 @@ last_modified_at: 2021-05-09
 ## 문제점2: 비밀번호 변경알림, 이벤트 시작알림의 응답
 
 ```java
-/**
-     * 사용자 로그인 기능
-     * Firebase Token 생성 후 로그인한 회원에게 보내야 할 알림여부를 응답을 보냄
-     * @param memberLogin
-     * @return {@literal List<AlertResponse>}
+   /**
+     * 로그인 후 firebase token 저장 및 알림전송의 비즈니스 로직 처리
+     * @param userNo
+     * @param token
      */
-    @PostMapping("/login")
-    public List<AlertResponse> login(@RequestBody MemberLogin memberLogin) {
-        String userNo = String.valueOf(memberLogin.getUserNo());
-        String userId = memberLogin.getUserId();
-        String password = memberLogin.getPassword();
-
-        memberService.isUserIdExist(userId, password);
-        loginService.setUserNo(memberLogin.getUserNo());
-
-        firebaseTokenManager.register(userNo, memberLogin.getToken());
+    @Override
+    public void afterLogin(long userNo, String token) {
+        firebaseTokenManager.register(String.valueOf(userNo), token);
         
-        //로그인 후 응답으로 보내주는 비밀번호 변경알림, 이벤트 시작알림
-        List<AlertResponse> loginResponses = alertService.eventStartNotice(memberLogin.getUserNo(), LocalDate.now());
-        AlertResponse isUserNeedToChangePw = alertService.changePasswordNotice(memberLogin.getUserNo());
-        loginResponses.add(isUserNeedToChangePw);
-        
-        return loginResponses;
+        //로그인 후 알림전송
+        alertService.eventStartNotice(userNo, LocalDate.now());
+        alertService.changePasswordNotice(userNo);
     }
-
 ```
 
 <br>
@@ -201,35 +163,24 @@ last_modified_at: 2021-05-09
 ### 알림여부를 보내주는 응답을 삭제하자
 
 ```java
-/**
-     * 사용자 로그인 기능
-     * Firebase Token 생성 후 로그인한 회원에게 보내야 할 알림여부를 응답을 보냄
-     * @param memberLogin
-     * @return {@literal List<AlertResponse>}
-     * @return {@literal CompletableFuture<List<AlertResponse>>}
-     */
-    @PostMapping("/login")
-    public ResponseEntity<HttpStatus> login(@RequestBody MemberLogin memberLogin) {
-        String userNo = String.valueOf(memberLogin.getUserNo());
-        String userId = memberLogin.getUserId();
-        String password = memberLogin.getPassword();
-        
-        memberService.isUserIdExist(userId, password);
-        loginService.setUserNo(memberLogin.getUserNo());
+public void eventStartNotice(long userNo, LocalDate todayDate) {
+        List<Long> appliedEvents = eventDAO.getAppliedEvent(userNo);
 
-        firebaseTokenManager.register(userNo, memberLogin.getToken());
+        appliedEvents.forEach(eventNo -> {
+            EventDTO eventInfo = eventDAO.getInfoOfEvent(eventNo);
 
-        alertService.eventStartNotice(memberLogin.getUserNo(), LocalDate.now());
-        alertService.changePasswordNotice(memberLogin.getUserNo());
-
-        return RESPONSE_ENTITY_OK;
+            if(ConvertDataType.dateFormatter(todayDate).equals(eventInfo.getStartDate())) {
+                String userToken = firebaseTokenManager.getToken(ConvertDataType.longToString(userNo));
+                sendMessage(userToken, "이벤트 시작 알림이 있습니다!", "이벤트가 곧 시작됩니다! 잊지말고 참여해주세요");
+            }
+        });
     }
 ```
 
 <br>
 
 이미 Firebase에 알림 메세지를 비동기로 전송해주는 `sendAsync()` 가 있기 때문에 알림을 비동기로 전송하고 있는 와중에 이중으로 클라이언트에 true, false 알림여부를 
-보내지 않아도 된다고 판단하였습니다. 그리하여 과감히 이 부분을 삭제하고 로그인에 성공한다면 `200 Status code` 를 리턴하도록 변경하였습니다. 
+보내지 않아도 된다고 판단하였습니다. 그리하여 Firebase로 알림을 전송하는 로직만 살려두고 클라이언트로는 응답을 보내지 않도록 설정하였습니다.
 
 <br>
 
