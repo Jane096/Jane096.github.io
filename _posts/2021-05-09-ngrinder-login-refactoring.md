@@ -44,7 +44,7 @@ last_modified_at: 2021-05-09
      * @param token
      */
     @Override
-    public void afterLogin(long userNo, String token) {
+    public void successLogin(long userNo, String token) {
         firebaseTokenManager.makeAccessToken(userNo);
         alertService.eventStartNotice(userNo, LocalDate.now());
         alertService.changePasswordNotice(userNo);
@@ -103,7 +103,7 @@ last_modified_at: 2021-05-09
      * @param token
      */
     @Override
-    public void afterLogin(long userNo, String token) {
+    public void successLogin(long userNo, String token) {
         firebaseTokenManager.register(String.valueOf(userNo), token);
         alertService.eventStartNotice(userNo, LocalDate.now());
         alertService.changePasswordNotice(userNo);
@@ -139,7 +139,7 @@ last_modified_at: 2021-05-09
      * @param token
      */
     @Override
-    public void afterLogin(long userNo, String token) {
+    public void successLogin(long userNo, String token) {
         firebaseTokenManager.register(String.valueOf(userNo), token);
         
         //로그인 후 알림전송
@@ -181,6 +181,8 @@ public void eventStartNotice(long userNo, LocalDate todayDate) {
 
 이미 Firebase에 알림 메세지를 비동기로 전송해주는 `sendAsync()` 가 있기 때문에 알림을 비동기로 전송하고 있는 와중에 이중으로 클라이언트에 true, false 알림여부를 
 보내지 않아도 된다고 판단하였습니다. 그리하여 Firebase로 알림을 전송하는 로직만 살려두고 클라이언트로는 응답을 보내지 않도록 설정하였습니다.
+
+> 현재 스트림을 활용하여 반복문을 돌고있는데 이 부분에서 O(n)의 시간이 나올 가능성이 커 개선작업을 진행할 예정입니다.
 
 <br>
 
