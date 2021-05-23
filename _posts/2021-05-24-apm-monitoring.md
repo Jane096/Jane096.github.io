@@ -154,6 +154,12 @@ Redis에 대한 것까지 모두 꼼꼼히 모니터링 되고 있습니다.(사
 
 <br>
 
+![image](https://user-images.githubusercontent.com/58355531/119268408-c7688c80-bc2d-11eb-971b-8ab3f8e29753.png){: .align-center}
+
+또한 힙 메모리, cpu, GC의 지표까지 모두 확인이 가능하게 되었습니다!
+
+<br>
+
 ![image](https://user-images.githubusercontent.com/58355531/119267729-ce41d000-bc2a-11eb-8da5-b2005c2e9cbb.png){: .align-center}
 
 현재 실행 중인 앱에서 어떤 것이 가장 많은 요청을 받고 있는지, 어떤 동작을 얼마나 수행하는지 아주 세세하게 나오고 있습니다. 이 지표를 보고서
