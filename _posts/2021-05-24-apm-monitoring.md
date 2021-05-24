@@ -17,23 +17,21 @@ last_modified_at: 2021-05-24
 
 ## Overview
 
-[지난 포스팅]() 과 마찬가지로 최근에도 성능테스트 및 개선작업을 진행 중이었습니다. 리눅스 우분투에서 `htop` 명령어로 cpu나 memory 등을 모니터링 하고 있었지만
-이런 화면은 저에겐 정확한 병목의 원인을 파악하기가 매우 힘들었습니다.
+[지난 포스팅](https://jane096.github.io/project/ngrinder-performance-test/) 과 마찬가지로 최근에도 성능테스트 및 개선작업을 진행 중이었습니다. 저는 주로 리눅스 우분투에서 `htop` 명령어로 cpu나 memory 등을 모니터링 하고 있었습니다. 
 
 ![image](https://user-images.githubusercontent.com/58355531/116382749-33cfb600-a851-11eb-81e5-7455f0c44c72.png){: .align-center}
 
 <br>
 
-모니터링 현황에는 redis, mysql의 사용 내역도 쭉쭉 올라오지만 성능저하의 원인을 쉽게 파악하지 못했습니다.
-그리하여 **Datadog APM** 을 연결하여 복잡하게 얽혀있을 수 있는 성능 문제를 자세하게 모니터링 하기로 결정했습니다.
+하지만 좀 더 시각적으로도 편하게 볼 수 있고 전반적인 어플리케이션의 라이프사이클(cpu, GC, JVM, I/O 등)을 확인하여 에러나 병목이 발생한다면 리포트를 바탕으로 빠르게 대응할 수 있도록 **Datadog APM** 을 연결해 자세하게 모니터링 하기로 결정했습니다.
 
 <br>
 <br>
 
 ## APM 이란?
 
-**Application Performance Monitoring** 의 약자로 구동 중인 애플리케이션의 대한 성능측정과 에러탐지 등의 정보를 수집해 모니터링하는 툴입니다.
-보다 편리성을 위해서 시각화한 **Metrics** 도 지원을 해줍니다.
+**Application Performance Monitoring** 의 약자로 구동 중인 애플리케이션의 대한 성능측정과 에러탐지 등, 전반적인 애플리케이션 라이프사이클의 정보를 수집해 모니터링하는 툴입니다.
+보다 편리성을 위해서 다양하게 시각화한 **Metrics**, 그리고 API 테스트도 지원을 해줍니다.
 
 여러 대의 애플리케이션에 설치가 가능하며 이를 한꺼번에 같은 UI 상에 보여주기 때문에 마이크로서비스 아키텍처 에도 유용하게 사용될 수 있다고 합니다.
 
@@ -47,7 +45,7 @@ last_modified_at: 2021-05-24
 저는 모든 서버 환경이 Google cloud platform(이하 GCP) 구성되어있습니다. GCP를 사용할 경우 [Datadog](https://www.datadoghq.com/)에서 빠르게 연동할 수 있도록 서비스를 지원하기 때문에
 저와 같은 GCP를 사용하신다면 추천드립니다! 2주 동안 무료 Trial이 가능하네요!
 
-처음 Trial을 누르면 웹페이지에서 안내하는 순서에 따라 진행하시면 됩니다. 애플리케이션의 성능을 측정해줄 도구가 필요한데요, 이것을 **Agent** 라고 합니다.
+처음 Trial을 누르면 웹페이지에서 안내하는 순서에 따라 진행하시면 됩니다. 가장 첫번째로 애플리케이션의 성능을 측정해줄 도구가 필요한데요, 이것을 **Agent** 라고 합니다.
 Agent는 여러 서버에 설치가 가능해 위에 언급했듯이 분산서버 환경에 매우 적합합니다. 저는 아직 측정할 서버가 1대 뿐이라 1개만 설치해주었습니다.
 
 ![image](https://user-images.githubusercontent.com/58355531/119266383-8ec4b500-bc25-11eb-8e5c-0b89b06a6f80.png){: .align-center}
@@ -60,11 +58,11 @@ Agent는 여러 서버에 설치가 가능해 위에 언급했듯이 분산서�
 ### GCP 인스턴스 읽어오기
 
 Agent 설치가 끝났으니 이젠 우리가 구성하고 있는 GCP의 compute engine을 불러와야 합니다. 왼쪽 메뉴에 **Integrations** 에서 Google cloud~ 를 치면 저렇게 
-API가 나오는데 내 GCP의 서비스 계정 private key를 넣어 연결시켜주면 됩니다. 
+API가 나오는데 내 GCP의 서비스 계정 private key를 넣어 연결시켜주면 됩니다. 저는 이미 연결된 후라 모두 `Installed` 라고 뜨네요.
 
 ![image](https://user-images.githubusercontent.com/58355531/119266536-29bd8f00-bc26-11eb-9ac1-158b92c718ae.png){: .align-center}
 
-> 서비스 계정 private key를 가져오는 방법은 아래 **Instructions for adding Google cloud project**를 참고해주시면 됩니다. 간단한 과정이기에 이 블로그에선 생략하겠습니다.
+> 서비스 계정 private key를 가져오는 방법은 아래 사진의 맨 밑에 보이는 **Instructions for adding Google cloud project**를 참고해주시면 됩니다. 간단한 과정이기에 이 블로그에선 생략하겠습니다.
 
 <br>
 
@@ -120,14 +118,14 @@ systemctl restart datadog-agent
 ### Tracer 설치하기
 
 [Datadog docs](https://docs.datadoghq.com/tracing/setup_overview/setup/java/?tab=containers) 에 따라서 진행했을 때, 마지막으론 Tracer를 설치해주어야 했습니다.
-문서에 소개된대로 `wget -O dd-java-agent.jar https://dtdg.co/latest-java-tracer` 를 입력해 `dd-java-agent.jar` 라는 파일을 받아둡니다. 저는 / 디렉토리에
+문서에 소개된대로 `wget -O dd-java-agent.jar https://dtdg.co/latest-java-tracer` 를 입력해 `dd-java-agent.jar` 라는 파일을 받아둡니다. 저는 root 디렉토리에
 받아두었습니다.
 
 이제 이 Tracer를 실행해 내 애플리케이션의 jvm을 모니터링 할 수 있도록 실행시켜야 합니다.
 
 ![image](https://user-images.githubusercontent.com/58355531/119267458-aa31bf00-bc29-11eb-9005-25d1cc8965b1.png){: .align-center}
 
-이렇게 친절하게 `dd-java-agent.jar` 파일명과 경로, 그리고 모니터링할 내 앱의 jar 파일과 파일경로로 바꾸어 서버 커맨드 창에서 실행시켜주면 됩니다.
+이렇게 친절하게 어떻게 실행을 시켜야하는지 명령어를 알려줍니다. `dd-java-agent.jar` 파일명과 경로, 그리고 모니터링할 내 앱의 jar 파일과 파일경로로 바꾸어 우분투 CLI 창에서 실행시켜주면 됩니다.
 
 ```bash
 java -javaagent:dd-java-agent.jar -Ddd.logs.injection=true -jar /festa-0.0.1-SNAPSHOT.jar
@@ -162,7 +160,7 @@ Redis에 대한 것까지 모두 꼼꼼히 모니터링 되고 있습니다.(사
 
 ![image](https://user-images.githubusercontent.com/58355531/119267729-ce41d000-bc2a-11eb-8da5-b2005c2e9cbb.png){: .align-center}
 
-현재 실행 중인 앱에서 어떤 것이 가장 많은 요청을 받고 있는지, 어떤 동작을 얼마나 수행하는지 아주 세세하게 나오고 있습니다. 이 지표를 보고서
+현재 실행 중인 앱에서 어떤 것이 가장 많은 요청을 받고 있는지, 어떤 동작을 얼마나 수행하는지 아주 Code-Level 단위로 세세하게 나오고 있습니다. 이 지표를 보고서
 이전 보다 더 명확하게 원인을 파악할 수 있게 되었습니다! 생각보다 오래걸리지 않았고 간단한 과정이니 한번쯤 연결시켜 내 프로젝트의 상태를
 측정해보는 것도 좋을 것 같습니다!
 
@@ -183,7 +181,8 @@ Redis에 대한 것까지 모두 꼼꼼히 모니터링 되고 있습니다.(사
 
 ## Referenced by
 
-- Datadog Official documentation : <https://docs.datadoghq.com/getting_started/>
+- Datadog Official documentation: <https://docs.datadoghq.com/getting_started/>
+- What is Application Performance Management?: <https://smartbear.com/learn/performance-monitoring/what-is-application-performance-management/>
   
 <br>
 <br>
