@@ -157,7 +157,7 @@ IntelliJ IDEA 사용자 분들이라면 사실 사진에서 처럼 >> 버튼만 
 
 <br>
 
-**:diamond_shape_with_a_dot_inside: [개인 Github 주소 바로가기](https://github.com/Jane096) :diamond_shape_with_a_dot_inside:**
+:diamond_shape_with_a_dot_inside: **[개인 Github 주소 바로가기](https://github.com/Jane096)** :diamond_shape_with_a_dot_inside:
 
 <br>
 <br>
