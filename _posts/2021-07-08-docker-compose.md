@@ -129,5 +129,39 @@ MySQL의 경우에만 작성을 해주었는데요, 여기에 명시를 해주�
 `:` 왼쪽의 포트번호만 로컬에서 사용중이지 않은 포트로 바꿔주시고 오른쪽은 해당 프로그램의 기본 포트번호`(예: Redis는 6379, MySQL은 3306)` 를 넣어서 연결되도록 합니다. 
 만약 오른쪽 포트에 다른 임의의 포트를 넣는다면 도커 내에서 제대로 인식을 못해 외부접근이 되지 않습니다. 
 
+<br>
 
-> ... To be Continue
+이외 `working_dir` 은 현재 프로젝트에서 root 디렉토리가 `/demo` 인지라 저렇게 설정을 해주게 되었습니다. 그리고 `depends_on` 은 다른 도커 컨테이너인 redis, mysql과 함께
+어플리케이션을 돌리겠다는 의미입니다. 
+
+`command` 의 경우 이 부분은 Dockerfile을 이용해도 무방하긴 하나 현재로써는 `yml` 파일 내에 적어주어 도커 실행 후 바로 스프링부트 어플리케이션이 run 되도록 설정해주었습니다. 
+
+<br>
+<br>
+
+## 실행시켜보기
+
+![image](https://user-images.githubusercontent.com/58355531/128003600-3ee41394-6260-442e-9aa5-d9b038b5c463.png){: .align-center}
+
+IntelliJ IDEA 사용자 분들이라면 사실 사진에서 처럼 >> 버튼만 누르면 바로 실행이 됩니다.(도커가 현재 구동 중이라면..!) Docker Desktop에 들어가 보시면
+제가 맨 처음에 첨부한 이미지처럼 빨간색이 뜨는 아이콘과는 달리 초록 불빛의 아이콘을 띄는 컨테이너들이 한꺼번에 같이 잘 실행이 될 겁니다. (맨 위의 이미지는 제가 레디스를 꺼놓는 바람에 실행 중인 레디스를 못찾아서 에러가 난 겁니다..)
+
+<br>
+<br>
+
+[![image](https://user-images.githubusercontent.com/58355531/128004260-9b6efb8a-3fdf-4ef2-9a95-d1c169f429c2.png)](https://www.inflearn.com/course/%EB%8F%84%EC%BB%A4-%EC%BB%B4%ED%8F%AC%EC%A6%88 "클릭하면 해당 강의 페이지로 이동합니다 :)"){: .align-center}
+
+추가로, 인프런에 최근에 소개 된 강의인 것 같은데 도커 컴포즈에 대해 정말 자세히 소개해준 [강의](https://www.inflearn.com/course/%EB%8F%84%EC%BB%A4-%EC%BB%B4%ED%8F%AC%EC%A6%88)를 하나 추천드립니다. Django + postgre SQL 조합으로 소개해주시긴 하지만 다른 어플리케이션에서도 비슷하게 설정을 가져가기 때문에 처음에 도커 컴포즈에 대한 구조가 잘 안그려지실 때 보시는 것을 추천드립니다. 
+
+도커 컴포즈에 대한 저의 글을 많이 봐주셔서 감사드립니다!
+
+<br>
+
+**:diamond_shape_with_a_dot_inside: [개인 Github 주소 바로가기](https://github.com/Jane096) :diamond_shape_with_a_dot_inside:**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
