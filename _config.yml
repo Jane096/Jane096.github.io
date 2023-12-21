@@ -282,8 +282,6 @@ defaults:
       comments: true
       share: false
       related: true
-      toc_ads: true
-      toc_sticky: true
       
 # _projects
   - scope:
@@ -296,8 +294,6 @@ defaults:
       comments: true
       share: false
       related: true
-      toc_ads: true
-      toc_sticky: true
       
 # _pages
   - scope:
@@ -307,5 +303,3 @@ defaults:
       layout: single
       author_profile: true
       comments: true
-      toc_ads: true
-      toc_sticky: true
